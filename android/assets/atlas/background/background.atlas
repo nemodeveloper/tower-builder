@@ -1,0 +1,13 @@
+
+background.png
+size: 256,1440
+format: RGBA8888
+filter: MipMapLinearLinear,MipMapLinearLinear
+repeat: none
+background
+  rotate: false
+  xy: 0, 0
+  size: 256, 1440
+  orig: 256, 1440
+  offset: 0, 0
+  index: -1
