@@ -40,7 +40,7 @@ public class PlayerActor extends Box2dActor
     public synchronized boolean touchDown(float x, float y)
     {
         if (isLock.get())
-            return true;
+            return false;
 
         isLock.set(true);
         spawnPosX = x;
