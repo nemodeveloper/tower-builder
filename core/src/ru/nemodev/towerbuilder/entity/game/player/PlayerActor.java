@@ -1,73 +1,76 @@
 package ru.nemodev.towerbuilder.entity.game.player;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
-import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import ru.nemodev.towerbuilder.constant.texture.BorderTextureConstant;
 import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.model.GameObject;
-import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
-import ru.nemodev.towerbuilder.core.util.SpriteUtils;
-import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
-import ru.nemodev.towerbuilder.entity.game.tower.TowerBlock;
+import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
+import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockMove;
+import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
+
 
 public class PlayerActor extends Box2dActor
 {
-    private volatile AtomicBoolean isLock;
+    private static final float DELAY_DROP_TIME = 1.5f;
 
-    private float spawnPosX;
-    private float spawnPosY;
+    private final TowerManager towerManager;
+    private final TowerBlockGenerator towerBlockGenerator;
 
-    public PlayerActor(World world)
+    private TowerBlockMove towerBlockMove;
+    private float delayDrop;
+
+    private volatile boolean isTouch;
+
+    public PlayerActor(World world, TowerManager towerManager, TowerBlockGenerator towerBlockGenerator)
     {
         super(world);
-        this.isLock = new AtomicBoolean(false);
+
+        this.towerManager = towerManager;
+        this.towerBlockGenerator = towerBlockGenerator;
+        this.isTouch = false;
+        this.delayDrop = DELAY_DROP_TIME;
     }
 
     @Override
     public GameObject isTouch(float x, float y)
     {
+        if (isTouch || towerBlockMove == null)
+            return null;
+
+        isTouch = true;
+
         return this;
     }
 
     @Override
-    public synchronized boolean touchDown(float x, float y)
+    public boolean touchDown(float x, float y)
     {
-        if (isLock.get())
-            return false;
-
-        isLock.set(true);
-        spawnPosX = x;
-        spawnPosY = y;
-
         return true;
     }
 
     @Override
     protected void doAct(float delta)
     {
-        if (isLock.get())
+        if (towerBlockMove == null)
         {
-            spawnTowerBlock(spawnPosX, spawnPosY);
-            isLock.set(false);
+            delayDrop += delta;
+
+            // TODO это хак - нужно следить за тем как кубик упадет на землю или пропасть
+            if (delayDrop >= DELAY_DROP_TIME)
+            {
+                delayDrop = 0.f;
+                towerBlockMove = towerBlockGenerator.generate();
+                addGameObject(towerBlockMove);
+            }
+        }
+
+        if (isTouch && towerBlockMove != null)
+        {
+            towerManager.addGameObject(towerBlockMove.dropBlock());
+            towerBlockMove = null;
+
+            isTouch = false;
         }
     }
 
-    private void spawnTowerBlock(float x, float y)
-    {
-        Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world, ConstantBox2dBodyType.SIMPLE_TOWER_BLOCK,
-                new Vector2(x, y),  1.f, 1.f);
-        Body towerBlockBody = towerBlockFixture.getBody();
-
-        Box2DSprite towerBlockSprite = SpriteUtils.createBox2d(BorderTextureConstant.GROUND_ATLAS, BorderTextureConstant.GROUND);
-
-        TowerBlock towerBlock = new TowerBlock(world, towerBlockSprite, towerBlockFixture);
-        addGameObject(towerBlock);
-    }
 }

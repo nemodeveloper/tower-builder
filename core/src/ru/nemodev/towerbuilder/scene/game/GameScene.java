@@ -22,6 +22,8 @@ import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
+import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
+import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
 import ru.nemodev.towerbuilder.manager.GameManager;
 
 
@@ -32,6 +34,10 @@ public class GameScene extends Box2dScene
 {
     private Music musicBackground;
     private GroundActor groundActor;
+
+    private TowerManager towerManager;
+    private TowerBlockGenerator towerBlockGenerator;
+
     private PlayerActor playerActor;
 
     public GameScene(World world, Viewport viewport, Batch batch)
@@ -43,6 +49,7 @@ public class GameScene extends Box2dScene
 
     private void init()
     {
+        initTowerComponent();
         initPlayer();
         initBorder();
 
@@ -67,9 +74,17 @@ public class GameScene extends Box2dScene
         addGameObject(groundActor);
     }
 
+    private void initTowerComponent()
+    {
+        towerManager = new TowerManager(world);
+        addGameObject(towerManager);
+
+        towerBlockGenerator = new TowerBlockGenerator(world);
+    }
+
     private void initPlayer()
     {
-        playerActor = new PlayerActor(world);
+        playerActor = new PlayerActor(world, towerManager, towerBlockGenerator);
 
         addGameObject(playerActor);
     }

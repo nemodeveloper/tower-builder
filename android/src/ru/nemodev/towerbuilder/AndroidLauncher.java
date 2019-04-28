@@ -19,7 +19,7 @@ public class AndroidLauncher extends AndroidApplication
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		//initFabricIO();
+		initFabricIO();
 
 		setContentView(R.layout.main);
 

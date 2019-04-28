@@ -17,6 +17,7 @@ public final class AtlasLoaderConstant
         atlasForLoading.addAll(BorderTextureConstant.ATLAS_FOR_LOAD);
 
         atlasForLoading.addAll(UITextureConstant.ATLAS_FOR_LOAD);
+        atlasForLoading.addAll(TowerBlockTextureConstant.ATLAS_FOR_LOAD);
 
         return atlasForLoading;
     }

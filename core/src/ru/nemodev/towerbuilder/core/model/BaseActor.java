@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Iterator;
+
 import ru.nemodev.towerbuilder.core.scene.Scene;
 
 public abstract class BaseActor implements GameObject
 {
-    private final Array<GameObject> childrenGameObjects;
+    private final Array<GameObject> childrenList;
     private Scene scene;
 
     private boolean visible;
@@ -16,7 +18,12 @@ public abstract class BaseActor implements GameObject
 
     public BaseActor()
     {
-        this.childrenGameObjects = new Array<GameObject>();
+        this(16);
+    }
+
+    public BaseActor(int initialChildrenSize)
+    {
+        this.childrenList = new Array<GameObject>(initialChildrenSize);
         this.needRemove = false;
         this.visible = true;
     }
@@ -26,7 +33,7 @@ public abstract class BaseActor implements GameObject
         this.scene = scene;
         if (hasChildren())
         {
-            for (GameObject children : childrenGameObjects)
+            for (GameObject children : childrenList)
             {
                 children.setScene(getScene());
             }
@@ -36,30 +43,30 @@ public abstract class BaseActor implements GameObject
     public void addGameObject(GameObject gameObject)
     {
         gameObject.setScene(getScene());
-        childrenGameObjects.add(gameObject);
+        childrenList.add(gameObject);
     }
 
     @Override
     public void update(float delta)
     {
-        if (isNeedUpdate())
+        if (isNeedUpdate() && !isNeedRemove())
         {
             doAct(delta);
-        }
 
-        for (GameObject gameObject : childrenGameObjects)
-        {
-            if (gameObject.isNeedRemove())
+            for (GameObject gameObject : childrenList)
             {
-                childrenGameObjects.removeValue(gameObject, true);
+                if (gameObject.isNeedRemove())
+                {
+                    childrenList.removeValue(gameObject, true);
+                }
             }
-        }
 
-        if (hasChildren())
-        {
-            for (GameObject gameObject : childrenGameObjects)
+            if (hasChildren())
             {
-                gameObject.update(delta);
+                for (GameObject gameObject : childrenList)
+                {
+                    gameObject.update(delta);
+                }
             }
         }
     }
@@ -79,7 +86,7 @@ public abstract class BaseActor implements GameObject
             doDraw(batch, parentAlpha);
             if (hasChildren())
             {
-                for (GameObject gameObject : childrenGameObjects)
+                for (GameObject gameObject : childrenList)
                 {
                     gameObject.draw(batch, parentAlpha);
                 }
@@ -92,7 +99,7 @@ public abstract class BaseActor implements GameObject
     {
         if (isVisible() && hasChildren())
         {
-            for (GameObject children : childrenGameObjects)
+            for (GameObject children : childrenList)
             {
                 GameObject candidate = children.isTouch(x, y);
                 if (candidate != null)
@@ -117,7 +124,7 @@ public abstract class BaseActor implements GameObject
 
     protected final boolean hasChildren()
     {
-        return childrenGameObjects.size > 0;
+        return childrenList.size > 0;
     }
 
     protected void doDraw(Batch batch, float parentAlpha) { }
@@ -137,17 +144,24 @@ public abstract class BaseActor implements GameObject
         return needRemove;
     }
 
+    public void setNeedRemove(boolean needRemove)
+    {
+        this.needRemove = needRemove;
+    }
+
     public void remove()
     {
-        dispose();
         this.needRemove = true;
+        dispose();
 
         if (hasChildren())
         {
-            for (GameObject children : childrenGameObjects)
+            Iterator<GameObject> iterator = childrenList.iterator();
+            while (iterator.hasNext())
             {
+                GameObject children = iterator.next();
                 children.remove();
-                childrenGameObjects.removeValue(children, true);
+                iterator.remove();
             }
         }
     }

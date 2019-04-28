@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Iterator;
+
 import ru.nemodev.towerbuilder.core.model.GameObject;
-import ru.nemodev.towerbuilder.core.util.InputUtils;
 
 public class BaseScene extends InputProcessorBase implements Scene
 {
@@ -53,12 +54,19 @@ public class BaseScene extends InputProcessorBase implements Scene
     {
         if (isNeedUpdate())
         {
-            for (GameObject gameObject : gameObjects)
+            Iterator<GameObject> iterator = gameObjects.iterator();
+            while (iterator.hasNext())
             {
+                GameObject gameObject = iterator.next();
                 if (gameObject.isNeedRemove())
-                    gameObjects.removeValue(gameObject, true);
+                {
+                    gameObject.remove();
+                    iterator.remove();
+                }
                 else
+                {
                     gameObject.update(delta);
+                }
             }
         }
     }
@@ -100,7 +108,8 @@ public class BaseScene extends InputProcessorBase implements Scene
     @Override
     public void dispose()
     {
-        InputUtils.setInputProcessor(null);
+        super.dispose();
+
         for (GameObject gameObject : gameObjects)
         {
             gameObject.dispose();

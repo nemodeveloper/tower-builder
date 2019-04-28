@@ -18,6 +18,7 @@ public class TowerBlock extends Box2dActor
         super(world);
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
+        this.blockFixture.setUserData(this);
     }
 
     @Override

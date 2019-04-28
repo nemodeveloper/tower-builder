@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import ru.nemodev.towerbuilder.core.model.GameObject;
+import ru.nemodev.towerbuilder.core.util.InputUtils;
 
-public abstract class InputProcessorBase implements InputProcessor
+public abstract class InputProcessorBase implements InputProcessor, Disposable
 {
     protected final Viewport viewport;
     protected final Array<GameObject> gameObjects;
@@ -66,10 +68,13 @@ public abstract class InputProcessorBase implements InputProcessor
         if (!isInsideViewport(screenX, screenY))
             return false;
 
+        if (currentTouchHandler != null)
+            return true;
+
         lastScreenTouch.set(screenX, screenY);
         screenToSceneCoordinates(lastScreenTouch);
 
-        for (GameObject gameObject : gameObjects)
+        for (GameObject gameObject : new Array.ArrayIterator<GameObject>(gameObjects))
         {
             GameObject candidate = gameObject.isTouch(lastScreenTouch.x, lastScreenTouch.y);
             if (candidate != null && candidate.touchDown(lastScreenTouch.x, lastScreenTouch.y))
@@ -115,5 +120,12 @@ public abstract class InputProcessorBase implements InputProcessor
     public boolean scrolled(int amount)
     {
         return false;
+    }
+
+    @Override
+    public void dispose()
+    {
+        InputUtils.setInputProcessor(null);
+        currentTouchHandler = null;
     }
 }
