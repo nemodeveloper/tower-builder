@@ -6,14 +6,12 @@ import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.model.GameObject;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockMove;
-import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
 
 
 public class PlayerActor extends Box2dActor
 {
     private static final float DELAY_DROP_TIME = 1.5f;
 
-    private final TowerManager towerManager;
     private final TowerBlockGenerator towerBlockGenerator;
 
     private TowerBlockMove towerBlockMove;
@@ -21,11 +19,10 @@ public class PlayerActor extends Box2dActor
 
     private volatile boolean isTouch;
 
-    public PlayerActor(World world, TowerManager towerManager, TowerBlockGenerator towerBlockGenerator)
+    public PlayerActor(World world, TowerBlockGenerator towerBlockGenerator)
     {
         super(world);
 
-        this.towerManager = towerManager;
         this.towerBlockGenerator = towerBlockGenerator;
         this.isTouch = false;
         this.delayDrop = DELAY_DROP_TIME;
@@ -66,7 +63,7 @@ public class PlayerActor extends Box2dActor
 
         if (isTouch && towerBlockMove != null)
         {
-            towerManager.addGameObject(towerBlockMove.dropBlock());
+            towerBlockMove.dropBlock();
             towerBlockMove = null;
 
             isTouch = false;

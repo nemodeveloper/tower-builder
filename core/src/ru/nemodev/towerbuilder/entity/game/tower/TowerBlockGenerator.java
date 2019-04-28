@@ -16,9 +16,12 @@ import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 
 public class TowerBlockGenerator extends Box2dActor
 {
-    public TowerBlockGenerator(World world)
+    private final TowerManager towerManager;
+
+    public TowerBlockGenerator(World world, TowerManager towerManager)
     {
         super(world);
+        this.towerManager = towerManager;
     }
 
     public TowerBlockMove generate()
@@ -34,6 +37,6 @@ public class TowerBlockGenerator extends Box2dActor
         Box2DSprite towerBlockSprite = SpriteUtils.createBox2d(TowerBlockTextureConstant.SIMPLE_BLOCK_ATLAS,
                 TowerBlockTextureConstant.TYPE_LIST[MathUtils.random(0, TowerBlockTextureConstant.TYPE_LIST.length - 1)]);
 
-        return new TowerBlockMove(world, towerBlockSprite, towerBlockFixture);
+        return new TowerBlockMove(world, towerManager, towerBlockSprite, towerBlockFixture);
     }
 }

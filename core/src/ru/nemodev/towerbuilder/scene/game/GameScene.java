@@ -79,12 +79,12 @@ public class GameScene extends Box2dScene
         towerManager = new TowerManager(world);
         addGameObject(towerManager);
 
-        towerBlockGenerator = new TowerBlockGenerator(world);
+        towerBlockGenerator = new TowerBlockGenerator(world, towerManager);
     }
 
     private void initPlayer()
     {
-        playerActor = new PlayerActor(world, towerManager, towerBlockGenerator);
+        playerActor = new PlayerActor(world, towerBlockGenerator);
 
         addGameObject(playerActor);
     }

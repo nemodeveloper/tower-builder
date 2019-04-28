@@ -14,12 +14,14 @@ import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 
 public class TowerBlockMove extends Box2dActor
 {
+    private final TowerManager towerManager;
     private final Box2DSprite blockSpite;
     private final Fixture blockFixture;
 
-    public TowerBlockMove(World world, Box2DSprite blockSpite, Fixture blockFixture)
+    public TowerBlockMove(World world, TowerManager towerManager, Box2DSprite blockSpite, Fixture blockFixture)
     {
         super(world);
+        this.towerManager = towerManager;
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
     }
@@ -58,7 +60,7 @@ public class TowerBlockMove extends Box2dActor
                 blockFixture.getBody().getPosition(),  1.f, 1.f);
 
         TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture);
-        addGameObject(towerBlock);
+        towerManager.addGameObject(towerBlock);
 
         return towerBlock;
     }
