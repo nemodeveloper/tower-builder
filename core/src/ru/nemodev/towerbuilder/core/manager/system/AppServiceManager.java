@@ -1,6 +1,6 @@
 package ru.nemodev.towerbuilder.core.manager.system;
 
-import ru.nemodev.towerbuilder.core.service.AdbService;
+import ru.nemodev.towerbuilder.core.service.AdsService;
 import ru.nemodev.towerbuilder.core.service.MockPlayService;
 import ru.nemodev.towerbuilder.core.service.PlayService;
 
@@ -9,7 +9,7 @@ public final class AppServiceManager
     private static final AppServiceManager instance = new AppServiceManager();
 
     private PlayService playService;
-    private AdbService adbService;
+    private AdsService adsService;
 
     public AppServiceManager()
     {
@@ -26,14 +26,14 @@ public final class AppServiceManager
         this.playService = playService;
     }
 
-    public AdbService getAdbService()
+    public AdsService getAdsService()
     {
-        return adbService;
+        return adsService;
     }
 
-    public void setAdbService(AdbService adbService)
+    public void setAdsService(AdsService adsService)
     {
-        this.adbService = adbService;
+        this.adsService = adsService;
     }
 
     public static AppServiceManager getInstance()

@@ -54,7 +54,7 @@ public class BaseScene extends InputProcessorBase implements Scene
     {
         if (isNeedUpdate())
         {
-            Iterator<GameObject> iterator = gameObjects.iterator();
+            Iterator<GameObject> iterator = new Array.ArrayIterator<GameObject>(gameObjects);
             while (iterator.hasNext())
             {
                 GameObject gameObject = iterator.next();
@@ -86,7 +86,7 @@ public class BaseScene extends InputProcessorBase implements Scene
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        for (GameObject gameObject : gameObjects)
+        for (GameObject gameObject : new Array.ArrayIterator<GameObject>(gameObjects))
         {
             gameObject.draw(batch, 1);
         }
@@ -110,7 +110,7 @@ public class BaseScene extends InputProcessorBase implements Scene
     {
         super.dispose();
 
-        for (GameObject gameObject : gameObjects)
+        for (GameObject gameObject : new Array.ArrayIterator<GameObject>(gameObjects))
         {
             gameObject.dispose();
         }

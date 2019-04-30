@@ -33,7 +33,7 @@ public abstract class BaseActor implements GameObject
         this.scene = scene;
         if (hasChildren())
         {
-            for (GameObject children : childrenList)
+            for (GameObject children : new Array.ArrayIterator<GameObject>(childrenList))
             {
                 children.setScene(getScene());
             }
@@ -53,7 +53,7 @@ public abstract class BaseActor implements GameObject
         {
             doAct(delta);
 
-            for (GameObject gameObject : childrenList)
+            for (GameObject gameObject : new Array.ArrayIterator<GameObject>(childrenList))
             {
                 if (gameObject.isNeedRemove())
                 {
@@ -63,7 +63,7 @@ public abstract class BaseActor implements GameObject
 
             if (hasChildren())
             {
-                for (GameObject gameObject : childrenList)
+                for (GameObject gameObject : new Array.ArrayIterator<GameObject>(childrenList))
                 {
                     gameObject.update(delta);
                 }
@@ -86,7 +86,7 @@ public abstract class BaseActor implements GameObject
             doDraw(batch, parentAlpha);
             if (hasChildren())
             {
-                for (GameObject gameObject : childrenList)
+                for (GameObject gameObject : new Array.ArrayIterator<GameObject>(childrenList))
                 {
                     gameObject.draw(batch, parentAlpha);
                 }
@@ -99,7 +99,7 @@ public abstract class BaseActor implements GameObject
     {
         if (isVisible() && hasChildren())
         {
-            for (GameObject children : childrenList)
+            for (GameObject children : new Array.ArrayIterator<GameObject>(childrenList))
             {
                 GameObject candidate = children.isTouch(x, y);
                 if (candidate != null)
@@ -156,7 +156,7 @@ public abstract class BaseActor implements GameObject
 
         if (hasChildren())
         {
-            Iterator<GameObject> iterator = childrenList.iterator();
+            Iterator<GameObject> iterator = new Array.ArrayIterator<GameObject>(childrenList);
             while (iterator.hasNext())
             {
                 GameObject children = iterator.next();

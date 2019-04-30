@@ -1,4 +1,4 @@
-package ru.nemodev.towerbuilder;
+package ru.nemodev.towerbuilder.service;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 
+import ru.nemodev.towerbuilder.R;
 import ru.nemodev.towerbuilder.core.service.PlayService;
 import ru.nemodev.towerbuilder.core.util.LogUtils;
 

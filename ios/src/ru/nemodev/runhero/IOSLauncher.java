@@ -7,7 +7,7 @@ import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
 import ru.nemodev.towerbuilder.GameApp;
-import ru.nemodev.towerbuilder.core.service.MockAdbService;
+import ru.nemodev.towerbuilder.core.service.MockAdsService;
 import ru.nemodev.towerbuilder.core.service.MockPlayService;
 
 public class IOSLauncher extends IOSApplication.Delegate
@@ -16,7 +16,7 @@ public class IOSLauncher extends IOSApplication.Delegate
     protected IOSApplication createApplication()
     {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new GameApp(new MockPlayService(), new MockAdbService()), config);
+        return new IOSApplication(new GameApp(new MockPlayService(), new MockAdsService()), config);
     }
 
     public static void main(String[] argv)
