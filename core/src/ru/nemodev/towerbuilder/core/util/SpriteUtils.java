@@ -3,12 +3,15 @@ package ru.nemodev.towerbuilder.core.util;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import net.dermetfan.gdx.graphics.g2d.AnimatedBox2DSprite;
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
+
+import java.util.List;
 
 import ru.nemodev.towerbuilder.core.manager.resource.ResourceLoader;
 
@@ -74,10 +77,16 @@ public final class SpriteUtils
         box2DSprite.setX(0.f);
         box2DSprite.setY(0.f);
 
-//        if (!GameManager.getInstance().isRightDirection())
-//        {
-//            box2DSprite.flip(true, false);
-//        }
+        return box2DSprite;
+    }
+
+    public static Box2DSprite createRandomBox2d(String atlasName)
+    {
+        List<String> spriteList = ResourceLoader.getInstance().getAtlasSpriteNameList(atlasName);
+
+        Box2DSprite box2DSprite = new Box2DSprite(create(atlasName, spriteList.get(MathUtils.random(0, spriteList.size() - 1))));
+        box2DSprite.setX(0.f);
+        box2DSprite.setY(0.f);
 
         return box2DSprite;
     }

@@ -2,7 +2,6 @@ package ru.nemodev.towerbuilder.scene.game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
@@ -10,8 +9,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
-import ru.nemodev.towerbuilder.constant.GameConstant;
-import ru.nemodev.towerbuilder.constant.SoundConstant;
 import ru.nemodev.towerbuilder.constant.texture.BorderTextureConstant;
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.manager.resource.SoundManager;
@@ -21,6 +18,7 @@ import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
+import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
@@ -32,6 +30,8 @@ import ru.nemodev.towerbuilder.manager.GameManager;
  */
 public class GameScene extends Box2dScene
 {
+    private LevelDescription levelDescription;
+
     private Music musicBackground;
     private GroundActor groundActor;
 
@@ -40,9 +40,10 @@ public class GameScene extends Box2dScene
 
     private PlayerActor playerActor;
 
-    public GameScene(World world, Viewport viewport, Batch batch)
+    public GameScene(World world, Viewport viewport, Batch batch, LevelDescription levelDescription)
     {
         super(world, viewport, batch);
+        this.levelDescription = levelDescription;
 
         init();
     }
@@ -53,25 +54,11 @@ public class GameScene extends Box2dScene
         initPlayer();
         initBorder();
 
-        musicBackground = SoundManager.getInstance().getMusic(SoundConstant.MAIN_THEME_MUSIC, true);
+        musicBackground = SoundManager.getInstance().getMusic(levelDescription.getMainMusic(), true);
         if (ConfigManager.getInstance().isEnableSound())
         {
             musicBackground.play();
         }
-    }
-
-    private void initBorder()
-    {
-        Fixture groundFixture = Box2dObjectBuilder.createBoxFixture(world, ConstantBox2dBodyType.GROUND,
-                new Vector2(GameConstant.METERS_X / 2.f, 0.75f),  GameConstant.METERS_X / 2.f, 1.5f);
-        Body groundBody = groundFixture.getBody();
-        groundBody.setFixedRotation(true);
-
-        Box2DSprite groundSprite = SpriteUtils.createBox2d(BorderTextureConstant.GROUND_ATLAS, BorderTextureConstant.GROUND);
-
-        groundActor = new GroundActor(world, groundSprite, groundFixture);
-
-        addGameObject(groundActor);
     }
 
     private void initTowerComponent()
@@ -79,7 +66,7 @@ public class GameScene extends Box2dScene
         towerManager = new TowerManager(world);
         addGameObject(towerManager);
 
-        towerBlockGenerator = new TowerBlockGenerator(world, towerManager);
+        towerBlockGenerator = new TowerBlockGenerator(world, towerManager, levelDescription.getMoveBlockDescription());
     }
 
     private void initPlayer()
@@ -87,6 +74,24 @@ public class GameScene extends Box2dScene
         playerActor = new PlayerActor(world, towerBlockGenerator);
 
         addGameObject(playerActor);
+    }
+
+    private void initBorder()
+    {
+        Fixture groundFixture = Box2dObjectBuilder.createBoxFixture(
+                world, ConstantBox2dBodyType.GROUND,
+                levelDescription.getGroundDescription().getPosition(),
+                levelDescription.getGroundDescription().getWidth(), levelDescription.getGroundDescription().getHeight());
+        Body groundBody = groundFixture.getBody();
+        groundBody.setFixedRotation(true);
+
+        Box2DSprite groundSprite = SpriteUtils.createBox2d(
+                BorderTextureConstant.GROUND_ATLAS,
+                levelDescription.getGroundDescription().getTexture());
+
+        groundActor = new GroundActor(world, groundSprite, groundFixture);
+
+        addGameObject(groundActor);
     }
 
     @Override

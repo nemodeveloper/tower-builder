@@ -11,6 +11,7 @@ import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
 import ru.nemodev.towerbuilder.core.scene.Scene;
 import ru.nemodev.towerbuilder.core.screen.BaseScreen;
+import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.scene.game.GameBackgroundScene;
 import ru.nemodev.towerbuilder.scene.game.GameScene;
@@ -21,14 +22,17 @@ import ru.nemodev.towerbuilder.scene.game.GameUIScene;
  */
 public class GameScreen extends BaseScreen
 {
+    private LevelDescription levelDescription;
+
     private GameBackgroundScene gameBackgroundScene;
     private GameScene gameScene;
     private GameUIScene gameUIScene;
 
-    public GameScreen()
+    public GameScreen(LevelDescription levelDescription)
     {
         super(new Array<Scene>());
 
+        this.levelDescription = levelDescription;
         Batch batch = GameManager.getInstance().getSpriteBatch();
 
         initBackgroundScene(batch);
@@ -41,7 +45,12 @@ public class GameScreen extends BaseScreen
         OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
         camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
 
-        gameBackgroundScene = new GameBackgroundScene(new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y, camera), batch);
+        gameBackgroundScene = new GameBackgroundScene(
+                new ExtendViewport(
+                        GameConstant.METERS_X, GameConstant.METERS_Y,
+                        GameConstant.METERS_X, GameConstant.METERS_Y, camera),
+                batch,
+                levelDescription.getBackgroundDescription());
         addScene(gameBackgroundScene);
     }
 
@@ -51,9 +60,12 @@ public class GameScreen extends BaseScreen
         camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
 
         gameScene = new GameScene(
-                new World(new Vector2(0.f, -9.81f), false),
-                new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y, camera),
-                batch);
+                new World(new Vector2(0.f, -10.f), false),
+                new ExtendViewport(
+                        GameConstant.METERS_X, GameConstant.METERS_Y,
+                        GameConstant.METERS_X, GameConstant.METERS_Y, camera),
+                batch,
+                levelDescription);
 
         addScene(gameScene);
     }

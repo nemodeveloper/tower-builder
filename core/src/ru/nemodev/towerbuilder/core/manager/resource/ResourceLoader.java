@@ -10,8 +10,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
+import ru.nemodev.towerbuilder.core.manager.resource.game.GameLocationLoader;
+import ru.nemodev.towerbuilder.core.manager.resource.game.GameLocationParser;
 import ru.nemodev.towerbuilder.core.physic.BodyEditorLoader;
 
 /**
@@ -27,6 +31,7 @@ public final class ResourceLoader implements Disposable
     {
         this.assetManager = new AssetManager();
         this.assetManager.setLoader(BodyEditorLoader.class, new PhysicBodyEditorLoader(assetManager.getFileHandleResolver()));
+        this.assetManager.setLoader(GameLocationParser.class, new GameLocationLoader(assetManager.getFileHandleResolver()));
     }
 
     public static ResourceLoader getInstance()
@@ -78,6 +83,19 @@ public final class ResourceLoader implements Disposable
         return getTextureAtlas(atlasName).createSprites();
     }
 
+    public List<String> getAtlasSpriteNameList(String atlasName)
+    {
+        TextureAtlas textureAtlas = getTextureAtlas(atlasName);
+
+        List<String> spriteNameList = new LinkedList<String>();
+        for (TextureAtlas.AtlasRegion atlasRegion : textureAtlas.getRegions())
+        {
+            spriteNameList.add(atlasRegion.name);
+        }
+
+        return spriteNameList;
+    }
+
     // sounds
     public void loadMusic(Set<String> musics)
     {
@@ -108,6 +126,17 @@ public final class ResourceLoader implements Disposable
     public BodyEditorLoader getBodyEditorLoader(String bodyEditorName)
     {
         return assetManager.get(bodyEditorName, BodyEditorLoader.class);
+    }
+
+    // game level
+    public void loadLocation(Set<String> locationPathList)
+    {
+        loadAssets(locationPathList, GameLocationParser.class);
+    }
+
+    public GameLocationParser getGameLocationParser(String locationPath)
+    {
+        return assetManager.get(locationPath, GameLocationParser.class);
     }
 
 }

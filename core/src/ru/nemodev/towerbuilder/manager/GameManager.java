@@ -99,7 +99,9 @@ public final class GameManager
                         }
 
                         getScreenManager().popScreen();
-                        getScreenManager().pushScreen(new GameScreen());
+                        getScreenManager().pushScreen(
+                                new GameScreen(
+                                        GameLocationManager.getInstance().getLevelDescription(0, 0)));
                     }
                     return true;
                 }

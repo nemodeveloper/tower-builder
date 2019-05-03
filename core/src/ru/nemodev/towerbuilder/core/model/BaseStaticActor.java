@@ -8,4 +8,10 @@ public abstract class BaseStaticActor extends BaseActor
     {
         return false;
     }
+
+    @Override
+    public GameObject isTouch(float x, float y)
+    {
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package ru.nemodev.towerbuilder.entity.game.tower;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -19,6 +20,11 @@ public class TowerBlock extends Box2dActor
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
         this.blockFixture.setUserData(this);
+    }
+
+    public Vector2 getPosition()
+    {
+        return blockFixture.getBody().getPosition();
     }
 
     @Override

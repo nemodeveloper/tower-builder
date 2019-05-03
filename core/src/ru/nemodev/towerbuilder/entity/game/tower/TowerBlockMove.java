@@ -10,7 +10,7 @@ import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
-import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
+import ru.nemodev.towerbuilder.entity.game.Box2dBodyType;
 
 public class TowerBlockMove extends Box2dActor
 {
@@ -18,12 +18,22 @@ public class TowerBlockMove extends Box2dActor
     private final Box2DSprite blockSpite;
     private final Fixture blockFixture;
 
-    public TowerBlockMove(World world, TowerManager towerManager, Box2DSprite blockSpite, Fixture blockFixture)
+    private final float size;
+    private final Box2dBodyType box2dBodyType;
+
+    public TowerBlockMove(World world,
+                          TowerManager towerManager,
+                          Box2DSprite blockSpite,
+                          Fixture blockFixture,
+                          float size,
+                          Box2dBodyType box2dBodyType)
     {
         super(world);
         this.towerManager = towerManager;
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
+        this.size = size;
+        this.box2dBodyType = box2dBodyType;
     }
 
     @Override
@@ -32,7 +42,7 @@ public class TowerBlockMove extends Box2dActor
         float size = 0.5f;
         Vector2 position = blockFixture.getBody().getPosition();
 
-        if (position.x + 0.2f >= GameConstant.METERS_X - size || position.x - 0.2f <= size)
+        if (position.x + size >= GameConstant.METERS_X || position.x - size <= 0.f)
         {
             blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
         }
@@ -56,8 +66,8 @@ public class TowerBlockMove extends Box2dActor
         setVisible(false);
         setNeedRemove(true);
 
-        Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world, ConstantBox2dBodyType.SIMPLE_TOWER_BLOCK,
-                blockFixture.getBody().getPosition(),  1.f, 1.f);
+        Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world, box2dBodyType,
+                blockFixture.getBody().getPosition(),  size, size);
 
         TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture);
         towerManager.addGameObject(towerBlock);

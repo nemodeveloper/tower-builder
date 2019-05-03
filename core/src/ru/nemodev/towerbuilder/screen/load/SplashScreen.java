@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import ru.nemodev.towerbuilder.constant.SoundConstant;
+import ru.nemodev.towerbuilder.constant.level.GameLocationLoaderConstant;
 import ru.nemodev.towerbuilder.constant.texture.AtlasLoaderConstant;
 import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureConstant;
 import ru.nemodev.towerbuilder.core.manager.resource.FontManager;
@@ -13,8 +14,9 @@ import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.screen.BaseLoaderScreen;
 import ru.nemodev.towerbuilder.core.util.ScreenUtils;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
-import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.entity.load.SplashActor;
+import ru.nemodev.towerbuilder.manager.GameLocationManager;
+import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.screen.main.MainScreen;
 
 public class SplashScreen extends BaseLoaderScreen
@@ -42,6 +44,7 @@ public class SplashScreen extends BaseLoaderScreen
         loadTexture();
         loadSound();
         loadPhysic();
+        loadGameLocation();
 
         FontManager.getInstance();
     }
@@ -51,21 +54,27 @@ public class SplashScreen extends BaseLoaderScreen
         ResourceLoader.getInstance().loadAtlas(AtlasLoaderConstant.ATLAS_BODY_FOR_LOADING);
     }
 
-    public void loadSound()
+    private void loadSound()
     {
         ResourceLoader.getInstance().loadMusic(SoundConstant.MUSIC_FOR_LOADING);
         ResourceLoader.getInstance().loadSound(SoundConstant.SOUND_FOR_LOADING);
     }
 
-    public void loadPhysic()
+    private void loadPhysic()
     {
         PhysicManager.getInstance();
+    }
+
+    private void loadGameLocation()
+    {
+        ResourceLoader.getInstance().loadLocation(GameLocationLoaderConstant.LOCATION_FOR_LOADING);
     }
 
     @Override
     protected void doAfterLoadResource()
     {
         PhysicManager.getInstance().preparePhysicBodies();
+        GameLocationManager.getInstance().prepareLocations();
 
         GameManager.getInstance().getScreenManager().popScreen();
         GameManager.getInstance().getScreenManager().pushScreen(new MainScreen());

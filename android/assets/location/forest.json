@@ -1,0 +1,38 @@
+{
+  "locationNumber": 0,
+  "locationName": "Forest",
+  "backgroundTexture": "mock",
+  "levelDescriptionList": [
+    {
+      "levelNumber": 0,
+      "moveBlockDescription": {
+        "atlasTexture": "tower_block_simple.atlas",
+        "startPosition": {
+          "x": 0,
+          "y": 16
+        },
+        "startSize": 1,
+        "startVelocityX": 9,
+        "physicDescription": {
+          "density": 1,
+          "friction": 100,
+          "restitution": 0
+        }
+      },
+      "groundDescription": {
+        "type": "static",
+        "texture": "ground",
+        "position": {
+          "x": 4.5,
+          "y": 0.5
+        },
+        "width": 6,
+        "height": 1
+      },
+      "backgroundDescription": {
+        "texture": "background"
+      },
+      "mainMusic": "main_theme.mp3"
+    }
+  ]
+}

@@ -123,6 +123,12 @@ project(":core") {
         implementation "net.dermetfan.libgdx-utils:libgdx-utils:0.13.4"
         implementation "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.4"
 
+        // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
+        implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+
+
         compile fileTree(dir: 'libs', include: '*.jar')
     }
 }

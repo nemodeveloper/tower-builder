@@ -10,7 +10,7 @@ import ru.nemodev.towerbuilder.core.scene.Scene;
 
 public abstract class BaseActor implements GameObject
 {
-    private final Array<GameObject> childrenList;
+    protected final Array<GameObject> childrenList;
     private Scene scene;
 
     private boolean visible;

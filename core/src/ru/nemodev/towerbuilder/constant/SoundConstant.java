@@ -8,7 +8,7 @@ public final class SoundConstant
 {
     private SoundConstant() { }
 
-    private static final String BASE_SOUND_PATH = "sound/";
+    public static final String BASE_SOUND_PATH = "sound/";
 
     // music
     public static final String MAIN_THEME_MUSIC = BASE_SOUND_PATH + "main_theme.mp3";
