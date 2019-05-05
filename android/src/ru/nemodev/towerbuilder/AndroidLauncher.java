@@ -3,6 +3,8 @@ package ru.nemodev.towerbuilder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -16,7 +18,7 @@ import ru.nemodev.towerbuilder.service.AndroidPlayService;
 public class AndroidLauncher extends AndroidApplication
 {
 	private AndroidPlayService androidPlayService;
-	private AndroidAdsService androidAdbService;
+	private AndroidAdsService androidAdsService;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
@@ -24,10 +26,20 @@ public class AndroidLauncher extends AndroidApplication
 		super.onCreate(savedInstanceState);
 		initFabricIO();
 
-		setContentView(R.layout.main);
+		AdView adView = initAdb();
+		View gameView = initGameView();
 
-		initAdb();
-		initGameView();
+		RelativeLayout layout = new RelativeLayout(this);
+		layout.addView(gameView, ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT);
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		layout.addView(adView, params);
+
+		setContentView(layout);
+		androidAdsService.showSimpleBanner();
 
 		hideVirtualButtons();
 	}
@@ -60,7 +72,7 @@ public class AndroidLauncher extends AndroidApplication
 		hideVirtualButtons();
 	}
 
-	private void initGameView()
+	private View initGameView()
 	{
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useAccelerometer = false;
@@ -68,16 +80,17 @@ public class AndroidLauncher extends AndroidApplication
 		config.hideStatusBar = true;
 		config.useImmersiveMode = true;
 
-		GdxGame gdxGame = findViewById(R.id.gdxGame);
-
 		androidPlayService = new AndroidPlayService(this);
-		gdxGame.setGameView(initializeForView(new GameApp(androidPlayService, androidAdbService), config));
+
+		return initializeForView(new GameApp(androidPlayService, androidAdsService), config);
 	}
 
-	private void initAdb()
+	private AdView initAdb()
 	{
-		AdView adView = findViewById(R.id.adView);
-		androidAdbService = new AndroidAdsService(this, adView, false);
+		AdView adView = new AdView(this);
+		androidAdsService = new AndroidAdsService(this, adView, false);
+
+		return adView;
 	}
 
 	private void initFabricIO()

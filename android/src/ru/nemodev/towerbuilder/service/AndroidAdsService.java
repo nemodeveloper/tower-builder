@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -41,6 +42,15 @@ public class AndroidAdsService implements AdsService
         else
         {
             disable();
+        }
+    }
+
+    @Override
+    public void showSimpleBanner()
+    {
+        if (enable)
+        {
+            simpleBanner.loadAd(buildAdRequest());
         }
     }
 
@@ -90,7 +100,14 @@ public class AndroidAdsService implements AdsService
     public void disable()
     {
         enable = false;
-        simpleBanner.setVisibility(View.GONE);
+        activity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                simpleBanner.setVisibility(View.GONE);
+            }
+        });
     }
 
     private AdRequest buildAdRequest()
@@ -107,7 +124,10 @@ public class AndroidAdsService implements AdsService
     private void initSimpleBanner()
     {
         simpleBanner.setVisibility(View.VISIBLE);
-        simpleBanner.loadAd(buildAdRequest());
+        simpleBanner.setAdSize(AdSize.BANNER);
+        simpleBanner.setAdUnitId(BuildConfig.DEBUG
+                ? AndroidUtils.getString(activity, R.string.ads_simple_banner_id_test)
+                : AndroidUtils.getString(activity, R.string.ads_simple_banner_id));
     }
 
     private void initFullScreenBanner()
