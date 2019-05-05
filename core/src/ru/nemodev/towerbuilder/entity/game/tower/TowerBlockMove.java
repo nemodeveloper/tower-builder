@@ -49,6 +49,13 @@ public class TowerBlockMove extends Box2dActor
             blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
         }
 
+        // TODO вращение по кругу
+//        Vector2 centre = new Vector2(GameConstant.CENTRE_X, GameConstant.CENTRE_Y);
+//
+//        Vector2 radius = centre.cpy().sub(position);
+//        Vector2 force = radius.rotate90(1).nor().scl(5.f);
+//        blockFixture.getBody().setLinearVelocity(force.x, force.y);
+
         updateCamera(delta);
     }
 
@@ -64,7 +71,7 @@ public class TowerBlockMove extends Box2dActor
         }
         else
         {
-            cameraPos.y = GameConstant.CENTRE_Y;
+            cameraPos.y = MathUtils.lerp(cameraPos.y, GameConstant.CENTRE_Y, delta * 3.f);
         }
 
         getScene().getCamera().update();

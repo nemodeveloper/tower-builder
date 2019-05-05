@@ -39,7 +39,7 @@ public class TowerBlock extends Box2dActor
 
     public boolean isNotMoveByY()
     {
-        return blockFixture.getBody().getLinearVelocity().y < 0.4f;
+        return Math.abs(blockFixture.getBody().getLinearVelocity().y) < 0.3f;
     }
 
     @Override
