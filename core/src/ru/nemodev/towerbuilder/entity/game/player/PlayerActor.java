@@ -10,9 +10,15 @@ import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockMove;
 
 public class PlayerActor extends Box2dActor
 {
+    public interface PlayerEventListener
+    {
+        void playerDropBlock();
+    }
+
     private static final float DELAY_DROP_TIME = 1.5f;
 
     private final TowerBlockGenerator towerBlockGenerator;
+    private PlayerEventListener playerEventListener;
 
     private TowerBlockMove towerBlockMove;
     private float delayDrop;
@@ -26,6 +32,11 @@ public class PlayerActor extends Box2dActor
         this.towerBlockGenerator = towerBlockGenerator;
         this.isTouch = false;
         this.delayDrop = DELAY_DROP_TIME;
+    }
+
+    public void setPlayerEventListener(PlayerEventListener playerEventListener)
+    {
+        this.playerEventListener = playerEventListener;
     }
 
     @Override
@@ -64,6 +75,7 @@ public class PlayerActor extends Box2dActor
         if (isTouch && towerBlockMove != null)
         {
             towerBlockMove.dropBlock();
+            playerEventListener.playerDropBlock();
             towerBlockMove = null;
 
             isTouch = false;

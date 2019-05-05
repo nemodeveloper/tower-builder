@@ -2,18 +2,29 @@ package ru.nemodev.towerbuilder.entity.game.location.level.background;
 
 public class BackgroundDescription
 {
-    private String texture;
+    private String staticTexture;
+    private String animationAtlas;
 
     public BackgroundDescription()
     { }
 
-    public String getTexture()
+    public String getStaticTexture()
     {
-        return texture;
+        return staticTexture;
     }
 
-    public void setTexture(String texture)
+    public void setStaticTexture(String staticTexture)
     {
-        this.texture = texture;
+        this.staticTexture = staticTexture;
+    }
+
+    public String getAnimationAtlas()
+    {
+        return animationAtlas;
+    }
+
+    public void setAnimationAtlas(String animationAtlas)
+    {
+        this.animationAtlas = animationAtlas;
     }
 }

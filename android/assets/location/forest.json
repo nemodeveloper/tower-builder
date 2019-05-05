@@ -5,13 +5,19 @@
   "levelDescriptionList": [
     {
       "levelNumber": 0,
+      "winStrategyDescription" : {
+        "type" : "block",
+        "count" : 20,
+        "towerHeight" : 15
+      },
       "moveBlockDescription": {
-        "atlasTexture": "tower_block_simple.atlas",
-        "startPosition": {
-          "x": 0,
-          "y": 16
-        },
-        "startSize": 1,
+        "staticBlockAtlas": "tower_block_simple.atlas",
+        "animationBlockAtlas" : [
+          "mock.atlas"
+        ],
+        "moveType" : "line",
+        "minDistanceY" : 10,
+        "startSize": 1.5,
         "startVelocityX": 9,
         "physicDescription": {
           "density": 1,
@@ -30,7 +36,8 @@
         "height": 1
       },
       "backgroundDescription": {
-        "texture": "background"
+        "staticTexture" : "game_background",
+        "animationAtlas" : "mock.atlas"
       },
       "mainMusic": "main_theme.mp3"
     }

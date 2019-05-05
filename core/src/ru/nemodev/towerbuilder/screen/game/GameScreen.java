@@ -1,13 +1,10 @@
 package ru.nemodev.towerbuilder.screen.game;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
 import ru.nemodev.towerbuilder.core.scene.Scene;
 import ru.nemodev.towerbuilder.core.screen.BaseScreen;
@@ -42,41 +39,22 @@ public class GameScreen extends BaseScreen
 
     private void initBackgroundScene(Batch batch)
     {
-        OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
-        camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
 
-        gameBackgroundScene = new GameBackgroundScene(
-                new ExtendViewport(
-                        GameConstant.METERS_X, GameConstant.METERS_Y,
-                        GameConstant.METERS_X, GameConstant.METERS_Y, camera),
-                batch,
-                levelDescription.getBackgroundDescription());
+        gameBackgroundScene = new GameBackgroundScene(batch, levelDescription.getBackgroundDescription());
         addScene(gameBackgroundScene);
     }
 
     private void initGameScene(Batch batch)
     {
-        OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
-        camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
-
-        gameScene = new GameScene(
-                new World(new Vector2(0.f, -10.f), false),
-                new ExtendViewport(
-                        GameConstant.METERS_X, GameConstant.METERS_Y,
-                        GameConstant.METERS_X, GameConstant.METERS_Y, camera),
-                batch,
-                levelDescription);
+        gameScene = new GameScene(new World(new Vector2(0.f, -10.f), false),
+                batch, levelDescription);
 
         addScene(gameScene);
     }
 
     private void initGameUIScene(Batch batch)
     {
-        OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
-        camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
-
-        gameUIScene = new GameUIScene(new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y, camera), batch,
-                gameScene.getSoundEventListener());
+        gameUIScene = new GameUIScene(batch, gameScene.getSoundEventListener());
         addScene(gameUIScene);
     }
 

@@ -2,7 +2,6 @@ package ru.nemodev.towerbuilder.scene.game;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureConstant;
@@ -17,9 +16,9 @@ public class GameBackgroundScene extends BaseScene
     private BackgroundDescription backgroundDescription;
     private GameBackgroundActor gameBackgroundActor;
 
-    public GameBackgroundScene(Viewport viewport, Batch batch, BackgroundDescription backgroundDescription)
+    public GameBackgroundScene(Batch batch, BackgroundDescription backgroundDescription)
     {
-        super(viewport, batch);
+        super(batch);
         this.backgroundDescription = backgroundDescription;
 
         init();
@@ -28,7 +27,7 @@ public class GameBackgroundScene extends BaseScene
     private void init()
     {
         Sprite backgroundSprite = SpriteUtils.create(
-                BackgroundTextureConstant.BACKGROUND_ATLAS, backgroundDescription.getTexture(),
+                BackgroundTextureConstant.BACKGROUND_ATLAS, backgroundDescription.getStaticTexture(),
                 GameConstant.METERS_X, GameConstant.METERS_Y,
                 GameConstant.CENTRE_X, GameConstant.CENTRE_Y);
 

@@ -1,7 +1,6 @@
 package ru.nemodev.towerbuilder.screen.load;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import ru.nemodev.towerbuilder.constant.SoundConstant;
 import ru.nemodev.towerbuilder.constant.level.GameLocationLoaderConstant;
@@ -12,12 +11,16 @@ import ru.nemodev.towerbuilder.core.manager.resource.PhysicManager;
 import ru.nemodev.towerbuilder.core.manager.resource.ResourceLoader;
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.screen.BaseLoaderScreen;
-import ru.nemodev.towerbuilder.core.util.ScreenUtils;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.load.SplashActor;
 import ru.nemodev.towerbuilder.manager.GameLocationManager;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.screen.main.MainScreen;
+
+import static ru.nemodev.towerbuilder.constant.GameConstant.CENTRE_X;
+import static ru.nemodev.towerbuilder.constant.GameConstant.CENTRE_Y;
+import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_X;
+import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_Y;
 
 public class SplashScreen extends BaseLoaderScreen
 {
@@ -27,12 +30,8 @@ public class SplashScreen extends BaseLoaderScreen
     {
         super();
 
-        BaseScene baseScene = new BaseScene(new ScreenViewport(), GameManager.getInstance().getSpriteBatch());
-
-        splashActor = SpriteUtils.create(BackgroundTextureConstant.SPLASH);
-        splashActor.setSize(ScreenUtils.getWidth(), ScreenUtils.getHeight());
-        splashActor.setPosition(0, 0);
-
+        BaseScene baseScene = new BaseScene(GameManager.getInstance().getSpriteBatch());
+        splashActor = SpriteUtils.create(BackgroundTextureConstant.SPLASH, METERS_X, METERS_Y, CENTRE_X, CENTRE_Y);
         baseScene.addGameObject(new SplashActor(splashActor));
 
         addScene(baseScene);

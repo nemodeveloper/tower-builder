@@ -1,17 +1,26 @@
 package ru.nemodev.towerbuilder.core.scene;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Iterator;
 
+import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.model.GameObject;
 
 public class BaseScene extends InputProcessorBase implements Scene
 {
     private final Batch batch;
+
+    public BaseScene(Batch batch)
+    {
+        this(new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y,
+                new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y)), batch);
+    }
 
     public BaseScene(Viewport viewport, Batch batch)
     {
@@ -26,9 +35,9 @@ public class BaseScene extends InputProcessorBase implements Scene
     }
 
     @Override
-    public Camera getCamera()
+    public OrthographicCamera getCamera()
     {
-        return viewport.getCamera();
+        return (OrthographicCamera) viewport.getCamera();
     }
 
     @Override

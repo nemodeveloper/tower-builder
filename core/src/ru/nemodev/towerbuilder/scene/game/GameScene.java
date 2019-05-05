@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
@@ -18,6 +17,8 @@ import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
+import ru.nemodev.towerbuilder.entity.game.level.GameCountBlockObserver;
+import ru.nemodev.towerbuilder.entity.game.level.GameObserver;
 import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
@@ -35,14 +36,15 @@ public class GameScene extends Box2dScene
     private Music musicBackground;
     private GroundActor groundActor;
 
+    private GameObserver gameObserver;
     private TowerManager towerManager;
     private TowerBlockGenerator towerBlockGenerator;
 
     private PlayerActor playerActor;
 
-    public GameScene(World world, Viewport viewport, Batch batch, LevelDescription levelDescription)
+    public GameScene(World world, Batch batch, LevelDescription levelDescription)
     {
-        super(world, viewport, batch);
+        super(world, batch);
         this.levelDescription = levelDescription;
 
         init();
@@ -53,6 +55,7 @@ public class GameScene extends Box2dScene
         initTowerComponent();
         initPlayer();
         initBorder();
+        initGameObserver();
 
         musicBackground = SoundManager.getInstance().getMusic(levelDescription.getMainMusic(), true);
         if (ConfigManager.getInstance().isEnableSound())
@@ -67,6 +70,7 @@ public class GameScene extends Box2dScene
         addGameObject(towerManager);
 
         towerBlockGenerator = new TowerBlockGenerator(world, towerManager, levelDescription.getMoveBlockDescription());
+        addGameObject(towerBlockGenerator);
     }
 
     private void initPlayer()
@@ -92,6 +96,15 @@ public class GameScene extends Box2dScene
         groundActor = new GroundActor(world, groundSprite, groundFixture);
 
         addGameObject(groundActor);
+    }
+
+    private void initGameObserver()
+    {
+        gameObserver = new GameCountBlockObserver(levelDescription.getWinStrategyDescription(), towerBlockGenerator);
+        towerManager.setTowerEventListener(gameObserver);
+        playerActor.setPlayerEventListener(gameObserver);
+
+        addGameObject(gameObserver);
     }
 
     @Override

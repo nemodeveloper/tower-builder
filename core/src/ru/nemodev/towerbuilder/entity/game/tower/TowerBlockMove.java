@@ -1,7 +1,9 @@
 package ru.nemodev.towerbuilder.entity.game.tower;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -46,6 +48,26 @@ public class TowerBlockMove extends Box2dActor
         {
             blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
         }
+
+        updateCamera(delta);
+    }
+
+    private void updateCamera(float delta)
+    {
+        Vector2 moveBlockPos = blockFixture.getBody().getPosition();
+        Vector3 cameraPos = getScene().getCamera().position;
+
+        float candidatePosY = moveBlockPos.y - GameConstant.CENTRE_Y + size;
+        if (candidatePosY > GameConstant.CENTRE_Y)
+        {
+            cameraPos.y = MathUtils.lerp(cameraPos.y, candidatePosY + size, delta * 3.f);
+        }
+        else
+        {
+            cameraPos.y = GameConstant.CENTRE_Y;
+        }
+
+        getScene().getCamera().update();
     }
 
     @Override
@@ -73,6 +95,12 @@ public class TowerBlockMove extends Box2dActor
         towerManager.addGameObject(towerBlock);
 
         return towerBlock;
+    }
+
+    public void setHeight(float height)
+    {
+        Vector2 curPos = blockFixture.getBody().getPosition();
+        blockFixture.getBody().setTransform(curPos.x, height, blockFixture.getBody().getAngle());
     }
 
 }

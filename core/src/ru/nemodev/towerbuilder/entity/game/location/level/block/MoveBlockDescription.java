@@ -1,13 +1,16 @@
 package ru.nemodev.towerbuilder.entity.game.location.level.block;
 
-import com.badlogic.gdx.math.Vector2;
+import java.util.List;
 
 import ru.nemodev.towerbuilder.constant.texture.TowerBlockTextureConstant;
 
 public class MoveBlockDescription
 {
-    private String atlasTexture;
-    private Vector2 startPosition;
+    private String staticBlockAtlas;
+    private List<String> animationBlockAtlas;
+    private MoveType moveType;
+
+    private float minDistanceY;
     private float startSize;
     private float startVelocityX;
     private PhysicDescription physicDescription;
@@ -15,24 +18,44 @@ public class MoveBlockDescription
     public MoveBlockDescription()
     { }
 
-    public String getAtlasTexture()
+    public String getStaticBlockAtlas()
     {
-        return atlasTexture;
+        return staticBlockAtlas;
     }
 
-    public void setAtlasTexture(String atlasTexture)
+    public void setStaticBlockAtlas(String staticBlockAtlas)
     {
-        this.atlasTexture = TowerBlockTextureConstant.BASE_BORDER_PATH + atlasTexture;
+        this.staticBlockAtlas = TowerBlockTextureConstant.BASE_BORDER_PATH + staticBlockAtlas;
     }
 
-    public Vector2 getStartPosition()
+    public List<String> getAnimationBlockAtlas()
     {
-        return startPosition;
+        return animationBlockAtlas;
     }
 
-    public void setStartPosition(Vector2 startPosition)
+    public void setAnimationBlockAtlas(List<String> animationBlockAtlas)
     {
-        this.startPosition = startPosition;
+        this.animationBlockAtlas = animationBlockAtlas;
+    }
+
+    public MoveType getMoveType()
+    {
+        return moveType;
+    }
+
+    public void setMoveType(MoveType moveType)
+    {
+        this.moveType = moveType;
+    }
+
+    public float getMinDistanceY()
+    {
+        return minDistanceY;
+    }
+
+    public void setMinDistanceY(float minDistanceY)
+    {
+        this.minDistanceY = minDistanceY;
     }
 
     public float getStartSize()

@@ -1,11 +1,8 @@
 package ru.nemodev.towerbuilder.screen.main;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
 import ru.nemodev.towerbuilder.core.scene.Scene;
 import ru.nemodev.towerbuilder.core.screen.BaseScreen;
@@ -36,22 +33,14 @@ public class MainScreen extends BaseScreen
 
     private void initBackgroundScene(Batch batch)
     {
-        OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
-        camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
-
-        MainBackgroundScene mainBackgroundScene = new MainBackgroundScene(
-                new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y, camera), batch);
+        MainBackgroundScene mainBackgroundScene = new MainBackgroundScene(batch);
 
         addScene(mainBackgroundScene);
     }
 
     private void initMenuScene(Batch batch)
     {
-        OrthographicCamera camera = new OrthographicCamera(GameConstant.METERS_X, GameConstant.METERS_Y);
-        camera.setToOrtho(false, GameConstant.METERS_X, GameConstant.METERS_Y);
-
-        MainMenuScene mainMenuScene = new MainMenuScene(
-                new ExtendViewport(GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.METERS_X, GameConstant.METERS_Y, camera), batch);
+        MainMenuScene mainMenuScene = new MainMenuScene(batch);
 
         addScene(mainMenuScene);
     }

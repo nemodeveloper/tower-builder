@@ -2,8 +2,6 @@ package ru.nemodev.towerbuilder.scene.main;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import com.badlogic.gdx.utils.viewport.Viewport;
-
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.entity.game.background.BackgroundActor;
 import ru.nemodev.towerbuilder.manager.pool.PoolManager;
@@ -16,9 +14,9 @@ public class MainBackgroundScene extends BaseScene
 {
     private BackgroundActor backgroundActor;
 
-    public MainBackgroundScene(Viewport viewport, Batch batch)
+    public MainBackgroundScene(Batch batch)
     {
-        super(viewport, batch);
+        super(batch);
 
         init();
     }

@@ -18,6 +18,7 @@ public class GroundActor extends Box2dActor
         super(world);
         this.groundSprite = groundSprite;
         this.ground = ground;
+        this.ground.setUserData(this);
     }
 
     @Override
