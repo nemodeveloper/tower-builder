@@ -15,7 +15,7 @@ public class PlayerActor extends Box2dActor
         void playerDropBlock();
     }
 
-    private static final float DELAY_DROP_TIME = 1.5f;
+    private static final float DELAY_DROP_TIME = 1.6f;
 
     private final TowerBlockGenerator towerBlockGenerator;
     private PlayerEventListener playerEventListener;

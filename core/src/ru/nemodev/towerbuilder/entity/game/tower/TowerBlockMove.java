@@ -23,6 +23,9 @@ public class TowerBlockMove extends Box2dActor
     private final float size;
     private final Box2dBodyType box2dBodyType;
 
+    private float moveToY;
+    private boolean needMoveToY;
+
     public TowerBlockMove(World world,
                           TowerManager towerManager,
                           Box2DSprite blockSpite,
@@ -36,15 +39,27 @@ public class TowerBlockMove extends Box2dActor
         this.blockFixture = blockFixture;
         this.size = size;
         this.box2dBodyType = box2dBodyType;
+
+        this.moveToY = 0.f;
+        this.needMoveToY = false;
     }
 
     @Override
     protected void doAct(float delta)
     {
-        float size = 0.5f;
+        updatePosition(delta);
+        updateCamera(delta);
+    }
+
+    private void updatePosition(float delta)
+    {
+        float halfSize = size / 2.f;
         Vector2 position = blockFixture.getBody().getPosition();
 
-        if (position.x + size >= GameConstant.METERS_X || position.x - size <= 0.f)
+        // Если движение по прямой проверяем границы и разворачиваем скорость
+        // TODO бывает кубик заедает на границе - разобраться с этим
+        if (position.x + halfSize >= GameConstant.METERS_X
+                || position.x - halfSize <= 0.f)
         {
             blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
         }
@@ -56,22 +71,39 @@ public class TowerBlockMove extends Box2dActor
 //        Vector2 force = radius.rotate90(1).nor().scl(5.f);
 //        blockFixture.getBody().setLinearVelocity(force.x, force.y);
 
-        updateCamera(delta);
+        // делаем плавный сдвиг
+        if (needMoveToY)
+        {
+            final float timeToMove = 0.1f;
+            Vector2 curPos = blockFixture.getBody().getPosition();
+            blockFixture.getBody().setTransform(curPos.x,
+                    MathUtils.lerp(curPos.y, moveToY, timeToMove),
+                    blockFixture.getBody().getAngle());
+
+            // TODO нужно делать округление для сравнения
+            if (blockFixture.getBody().getPosition().y == moveToY)
+            {
+                needMoveToY = false;
+            }
+        }
     }
 
     private void updateCamera(float delta)
     {
         Vector2 moveBlockPos = blockFixture.getBody().getPosition();
         Vector3 cameraPos = getScene().getCamera().position;
+        final float timeToMove = 0.1f;
 
+        // TODO нельзя завязываться на Y т/к он разный из-за ExtendViewPort - на разных экранах по разному отображается высота
+        // подумать и реализовать более верный алгоритм передвижения камеры
         float candidatePosY = moveBlockPos.y - GameConstant.CENTRE_Y + size;
         if (candidatePosY > GameConstant.CENTRE_Y)
         {
-            cameraPos.y = MathUtils.lerp(cameraPos.y, candidatePosY + size, delta * 3.f);
+            cameraPos.y = MathUtils.lerp(cameraPos.y, candidatePosY + size, timeToMove);
         }
         else
         {
-            cameraPos.y = MathUtils.lerp(cameraPos.y, GameConstant.CENTRE_Y, delta * 3.f);
+            cameraPos.y = MathUtils.lerp(cameraPos.y, GameConstant.CENTRE_Y, timeToMove);
         }
 
         getScene().getCamera().update();
@@ -106,8 +138,8 @@ public class TowerBlockMove extends Box2dActor
 
     public void setHeight(float height)
     {
-        Vector2 curPos = blockFixture.getBody().getPosition();
-        blockFixture.getBody().setTransform(curPos.x, height, blockFixture.getBody().getAngle());
+        moveToY = height;
+        needMoveToY = true;
     }
 
 }

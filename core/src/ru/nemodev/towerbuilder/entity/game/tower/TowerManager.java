@@ -66,7 +66,7 @@ public class TowerManager extends Box2dActor
             {
                 TowerBlock towerBlock = (TowerBlock) gameObject;
                 if (towerBlock.isOnTower()
-                        && towerBlock.isNotMoveByY()
+                        && towerBlock.isNotMove()
                         && !towerBlock.isNeedRemove()
                         && towerBlock.getPosition().y > max)
                 {
