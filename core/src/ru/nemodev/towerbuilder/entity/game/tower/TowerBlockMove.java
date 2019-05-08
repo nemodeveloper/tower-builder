@@ -13,6 +13,8 @@ import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.entity.game.Box2dBodyType;
+import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveBlockDescription;
+import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveType;
 
 public class TowerBlockMove extends Box2dActor
 {
@@ -20,28 +22,55 @@ public class TowerBlockMove extends Box2dActor
     private final Box2DSprite blockSpite;
     private final Fixture blockFixture;
 
+    private final MoveBlockDescription moveBlockDescription;
+
     private final float size;
+    private final float halfSize;
+    private float speed;
     private final Box2dBodyType box2dBodyType;
 
-    private float moveToY;
-    private boolean needMoveToY;
+    private final MoveType moveType;
+    private final Vector2 centre;
+    private float angle;
 
     public TowerBlockMove(World world,
                           TowerManager towerManager,
                           Box2DSprite blockSpite,
                           Fixture blockFixture,
-                          float size,
-                          Box2dBodyType box2dBodyType)
+                          MoveBlockDescription moveBlockDescription)
     {
         super(world);
         this.towerManager = towerManager;
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
-        this.size = size;
-        this.box2dBodyType = box2dBodyType;
+        this.moveBlockDescription = moveBlockDescription;
 
-        this.moveToY = 0.f;
-        this.needMoveToY = false;
+        this.size = moveBlockDescription.getStartSize();
+        this.halfSize = size / 2.f;
+        this.speed = moveBlockDescription.getStartSpeed();
+        this.box2dBodyType = moveBlockDescription.getPhysicDescription().getBox2dBodyType();
+
+        this.moveType = moveBlockDescription.getMoveType();
+        this.centre = new Vector2(GameConstant.HALF_X, blockFixture.getBody().getPosition().y);
+
+        if (moveType == MoveType.line)
+        {
+            blockFixture.getBody().setLinearVelocity(MathUtils.randomBoolean() ? speed : -speed, 0.f);
+        }
+        else
+        {
+            if (MathUtils.randomBoolean())
+            {
+                this.angle = moveBlockDescription.getMinAngle();
+            }
+            else
+            {
+                this.angle = moveBlockDescription.getMaxAngle();
+                this.speed *= -1;
+            }
+        }
+
+        blockFixture.setSensor(true);
     }
 
     @Override
@@ -53,39 +82,37 @@ public class TowerBlockMove extends Box2dActor
 
     private void updatePosition(float delta)
     {
-        float halfSize = size / 2.f;
-        Vector2 position = blockFixture.getBody().getPosition();
+        final Vector2 position = blockFixture.getBody().getPosition();
 
-        // Если движение по прямой проверяем границы и разворачиваем скорость
-        // TODO бывает кубик заедает на границе - разобраться с этим
-        if (position.x + halfSize >= GameConstant.METERS_X
-                || position.x - halfSize <= 0.f)
+        if (moveType == MoveType.line)
         {
-            blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
-        }
-
-        // TODO вращение по кругу
-//        Vector2 centre = new Vector2(GameConstant.CENTRE_X, GameConstant.CENTRE_Y);
-//
-//        Vector2 radius = centre.cpy().sub(position);
-//        Vector2 force = radius.rotate90(1).nor().scl(5.f);
-//        blockFixture.getBody().setLinearVelocity(force.x, force.y);
-
-        // делаем плавный сдвиг
-        if (needMoveToY)
-        {
-            final float timeToMove = 0.1f;
-            Vector2 curPos = blockFixture.getBody().getPosition();
-            blockFixture.getBody().setTransform(curPos.x,
-                    MathUtils.lerp(curPos.y, moveToY, timeToMove),
-                    blockFixture.getBody().getAngle());
-
-            // TODO нужно делать округление для сравнения
-            if (blockFixture.getBody().getPosition().y == moveToY)
+            // TODO бывает кубик заедает на границе - разобраться с этим
+            if (position.x + halfSize >= GameConstant.METERS_X
+                    || position.x - halfSize <= 0.f)
             {
-                needMoveToY = false;
+                blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
             }
         }
+        else
+        {
+            angle += 1.f * speed;
+            float x = centre.x + MathUtils.cosDeg(angle) * GameConstant.HALF_X;
+            float y = centre.y + MathUtils.sinDeg(angle) * GameConstant.HALF_X;
+            if (angle >= moveBlockDescription.getMaxAngle()
+                    || angle <= moveBlockDescription.getMinAngle())
+            {
+                speed *= -1;
+            }
+
+            blockFixture.getBody().setTransform(x, y, 0.f);
+        }
+
+        // делаем плавный сдвиг
+        final float timeToMove = 0.1f;
+        Vector2 curPos = blockFixture.getBody().getPosition();
+        blockFixture.getBody().setTransform(curPos.x,
+                MathUtils.lerp(curPos.y, centre.y, timeToMove),
+                blockFixture.getBody().getAngle());
     }
 
     private void updateCamera(float delta)
@@ -96,14 +123,14 @@ public class TowerBlockMove extends Box2dActor
 
         // TODO нельзя завязываться на Y т/к он разный из-за ExtendViewPort - на разных экранах по разному отображается высота
         // подумать и реализовать более верный алгоритм передвижения камеры
-        float candidatePosY = moveBlockPos.y - GameConstant.CENTRE_Y + size;
-        if (candidatePosY > GameConstant.CENTRE_Y)
+        float candidatePosY = moveBlockPos.y - GameConstant.HALF_Y + size;
+        if (candidatePosY > GameConstant.HALF_Y)
         {
             cameraPos.y = MathUtils.lerp(cameraPos.y, candidatePosY + size, timeToMove);
         }
         else
         {
-            cameraPos.y = MathUtils.lerp(cameraPos.y, GameConstant.CENTRE_Y, timeToMove);
+            cameraPos.y = MathUtils.lerp(cameraPos.y, GameConstant.HALF_Y, timeToMove);
         }
 
         getScene().getCamera().update();
@@ -138,8 +165,7 @@ public class TowerBlockMove extends Box2dActor
 
     public void setHeight(float height)
     {
-        moveToY = height;
-        needMoveToY = true;
+        centre.y = height;
     }
 
 }

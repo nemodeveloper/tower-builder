@@ -8,11 +8,14 @@ public class MoveBlockDescription
 {
     private String staticBlockAtlas;
     private List<String> animationBlockAtlas;
+
     private MoveType moveType;
+    private float minAngle;
+    private float maxAngle;
 
     private float minDistanceY;
     private float startSize;
-    private float startVelocityX;
+    private float startSpeed;
     private PhysicDescription physicDescription;
 
     public MoveBlockDescription()
@@ -48,6 +51,26 @@ public class MoveBlockDescription
         this.moveType = moveType;
     }
 
+    public float getMinAngle()
+    {
+        return minAngle;
+    }
+
+    public void setMinAngle(float minAngle)
+    {
+        this.minAngle = minAngle;
+    }
+
+    public float getMaxAngle()
+    {
+        return maxAngle;
+    }
+
+    public void setMaxAngle(float maxAngle)
+    {
+        this.maxAngle = maxAngle;
+    }
+
     public float getMinDistanceY()
     {
         return minDistanceY;
@@ -68,14 +91,14 @@ public class MoveBlockDescription
         this.startSize = startSize;
     }
 
-    public float getStartVelocityX()
+    public float getStartSpeed()
     {
-        return startVelocityX;
+        return startSpeed;
     }
 
-    public void setStartVelocityX(float startVelocityX)
+    public void setStartSpeed(float startSpeed)
     {
-        this.startVelocityX = startVelocityX;
+        this.startSpeed = startSpeed;
     }
 
     public PhysicDescription getPhysicDescription()

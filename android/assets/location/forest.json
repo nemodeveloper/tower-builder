@@ -15,10 +15,12 @@
         "animationBlockAtlas" : [
           "mock.atlas"
         ],
-        "moveType" : "line",
-        "minDistanceY" : 10,
+        "moveType" : "circle",
+        "minAngle" : 0,
+        "maxAngle" : 180,
+        "minDistanceY" : 7,
         "startSize": 1.5,
-        "startVelocityX": 9,
+        "startSpeed": 2,
         "physicDescription": {
           "density": 1,
           "friction": 100,

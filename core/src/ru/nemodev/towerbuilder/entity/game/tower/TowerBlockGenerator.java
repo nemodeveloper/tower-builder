@@ -16,13 +16,14 @@ import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveBlockDescription;
 
+
 public class TowerBlockGenerator extends Box2dActor
 {
     private final TowerManager towerManager;
     private final MoveBlockDescription moveBlockDescription;
 
     private float currentBlockSize;
-    private float currentSpeedX;
+    private float currentSpeed;
     private float currentPosY;
     private final float minDistanceY;
 
@@ -34,8 +35,8 @@ public class TowerBlockGenerator extends Box2dActor
         this.towerManager = towerManager;
         this.moveBlockDescription = moveBlockDescription;
         this.currentBlockSize = moveBlockDescription.getStartSize();
-        this.currentSpeedX = moveBlockDescription.getStartVelocityX();
-        this.currentPosY = GameConstant.CENTRE_Y;
+        this.currentSpeed = moveBlockDescription.getStartSpeed();
+        this.currentPosY = GameConstant.HALF_Y;
         this.minDistanceY = moveBlockDescription.getMinDistanceY();
 
         setVisible(false);
@@ -60,14 +61,15 @@ public class TowerBlockGenerator extends Box2dActor
 
     public TowerBlockMove generate()
     {
+        Vector2 position = new Vector2(
+                MathUtils.randomBoolean()
+                        ? 1.f
+                        : GameConstant.METERS_X - 1.f,
+                currentPosY);
+
         Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world,
-                ConstantBox2dBodyType.TOWER_BLOCK_MOVE,
-                new Vector2(
-                        MathUtils.random(1.f, GameConstant.METERS_X - 1.f),
-                        currentPosY),
+                ConstantBox2dBodyType.TOWER_BLOCK_MOVE, position,
                 currentBlockSize, currentBlockSize);
-        towerBlockFixture.getBody().setLinearVelocity(MathUtils.randomBoolean() ? currentSpeedX : -currentSpeedX, 0.f);
-        towerBlockFixture.setSensor(true);
 
         Box2DSprite towerBlockSprite = SpriteUtils.createRandomBox2d(moveBlockDescription.getStaticBlockAtlas());
 
@@ -75,8 +77,7 @@ public class TowerBlockGenerator extends Box2dActor
                 towerManager,
                 towerBlockSprite,
                 towerBlockFixture,
-                currentBlockSize,
-                moveBlockDescription.getPhysicDescription().getBox2dBodyType());
+                moveBlockDescription);
 
         return lastTowerBlockMove;
     }

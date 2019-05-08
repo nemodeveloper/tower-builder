@@ -17,8 +17,8 @@ import ru.nemodev.towerbuilder.manager.GameLocationManager;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.screen.main.MainScreen;
 
-import static ru.nemodev.towerbuilder.constant.GameConstant.CENTRE_X;
-import static ru.nemodev.towerbuilder.constant.GameConstant.CENTRE_Y;
+import static ru.nemodev.towerbuilder.constant.GameConstant.HALF_X;
+import static ru.nemodev.towerbuilder.constant.GameConstant.HALF_Y;
 import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_X;
 import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_Y;
 
@@ -31,7 +31,7 @@ public class SplashScreen extends BaseLoaderScreen
         super();
 
         BaseScene baseScene = new BaseScene(GameManager.getInstance().getSpriteBatch());
-        splashActor = SpriteUtils.create(BackgroundTextureConstant.SPLASH, METERS_X, METERS_Y, CENTRE_X, CENTRE_Y);
+        splashActor = SpriteUtils.create(BackgroundTextureConstant.SPLASH, METERS_X, METERS_Y, HALF_X, HALF_Y);
         baseScene.addGameObject(new SplashActor(splashActor));
 
         addScene(baseScene);

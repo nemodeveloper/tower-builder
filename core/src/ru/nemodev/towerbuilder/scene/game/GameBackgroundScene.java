@@ -29,7 +29,7 @@ public class GameBackgroundScene extends BaseScene
         Sprite backgroundSprite = SpriteUtils.create(
                 BackgroundTextureConstant.BACKGROUND_ATLAS, backgroundDescription.getStaticTexture(),
                 GameConstant.METERS_X, GameConstant.METERS_Y,
-                GameConstant.CENTRE_X, GameConstant.CENTRE_Y);
+                GameConstant.HALF_X, GameConstant.HALF_Y);
 
         gameBackgroundActor = new GameBackgroundActor(backgroundSprite);
         addGameObject(gameBackgroundActor);
