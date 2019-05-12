@@ -10,6 +10,7 @@ import ru.nemodev.towerbuilder.core.manager.ScreenManager;
 import ru.nemodev.towerbuilder.core.manager.system.AppServiceManager;
 import ru.nemodev.towerbuilder.core.service.AdsService;
 import ru.nemodev.towerbuilder.core.util.InputUtils;
+import ru.nemodev.towerbuilder.entity.game.description.mode.ModeType;
 import ru.nemodev.towerbuilder.screen.game.GameScreen;
 
 /**
@@ -101,7 +102,8 @@ public final class GameManager
                         getScreenManager().popScreen();
                         getScreenManager().pushScreen(
                                 new GameScreen(
-                                        GameLocationManager.getInstance().getLevelDescription(0, 0)));
+                                        GameBuilderManager.getInstance().getModeDescription(ModeType.count),
+                                        GameBuilderManager.getInstance().getLocationPackDescription("test")));
                     }
                     return true;
                 }

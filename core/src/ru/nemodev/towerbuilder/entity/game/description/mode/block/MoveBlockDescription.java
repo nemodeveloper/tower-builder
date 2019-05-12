@@ -1,14 +1,8 @@
-package ru.nemodev.towerbuilder.entity.game.location.level.block;
+package ru.nemodev.towerbuilder.entity.game.description.mode.block;
 
-import java.util.List;
-
-import ru.nemodev.towerbuilder.constant.texture.TowerBlockTextureConstant;
 
 public class MoveBlockDescription
 {
-    private String staticBlockAtlas;
-    private List<String> animationBlockAtlas;
-
     private MoveType moveType;
     private float minAngle;
     private float maxAngle;
@@ -20,26 +14,6 @@ public class MoveBlockDescription
 
     public MoveBlockDescription()
     { }
-
-    public String getStaticBlockAtlas()
-    {
-        return staticBlockAtlas;
-    }
-
-    public void setStaticBlockAtlas(String staticBlockAtlas)
-    {
-        this.staticBlockAtlas = TowerBlockTextureConstant.BASE_BORDER_PATH + staticBlockAtlas;
-    }
-
-    public List<String> getAnimationBlockAtlas()
-    {
-        return animationBlockAtlas;
-    }
-
-    public void setAnimationBlockAtlas(List<String> animationBlockAtlas)
-    {
-        this.animationBlockAtlas = animationBlockAtlas;
-    }
 
     public MoveType getMoveType()
     {

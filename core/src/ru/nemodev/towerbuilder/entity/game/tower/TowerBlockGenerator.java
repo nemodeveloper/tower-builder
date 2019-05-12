@@ -14,13 +14,15 @@ import ru.nemodev.towerbuilder.core.model.GameObject;
 import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
-import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveBlockDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveBlockDescription;
+import ru.nemodev.towerbuilder.entity.game.description.pack.block.BlockPackDescription;
 
 
 public class TowerBlockGenerator extends Box2dActor implements TowerManager.TowerEventListener
 {
     private final TowerManager towerManager;
     private final MoveBlockDescription moveBlockDescription;
+    private final BlockPackDescription blockPackDescription;
 
     private float currentBlockSize;
     private float currentSpeed;
@@ -31,11 +33,14 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
 
     private boolean readyForDropBlock;
 
-    public TowerBlockGenerator(World world, TowerManager towerManager, MoveBlockDescription moveBlockDescription)
+    public TowerBlockGenerator(World world, TowerManager towerManager,
+                               MoveBlockDescription moveBlockDescription, BlockPackDescription blockPackDescription)
     {
         super(world);
         this.towerManager = towerManager;
         this.moveBlockDescription = moveBlockDescription;
+        this.blockPackDescription = blockPackDescription;
+
         this.currentBlockSize = moveBlockDescription.getStartSize();
         this.currentSpeed = moveBlockDescription.getStartSpeed();
         this.currentPosY = GameConstant.HALF_Y;
@@ -74,7 +79,7 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
                 ConstantBox2dBodyType.TOWER_BLOCK_MOVE, position,
                 currentBlockSize, currentBlockSize);
 
-        Box2DSprite towerBlockSprite = SpriteUtils.createRandomBox2d(moveBlockDescription.getStaticBlockAtlas());
+        Box2DSprite towerBlockSprite = SpriteUtils.createRandomBox2d(blockPackDescription.getStaticAtlas());
 
         lastTowerBlockMove = new TowerBlockMove(world,
                 towerManager,

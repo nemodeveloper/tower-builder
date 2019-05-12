@@ -3,7 +3,7 @@ package ru.nemodev.towerbuilder.screen.load;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.SoundConstant;
-import ru.nemodev.towerbuilder.constant.level.GameLocationLoaderConstant;
+import ru.nemodev.towerbuilder.constant.level.GameLoaderConstant;
 import ru.nemodev.towerbuilder.constant.texture.AtlasLoaderConstant;
 import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureConstant;
 import ru.nemodev.towerbuilder.core.manager.resource.FontManager;
@@ -13,7 +13,7 @@ import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.screen.BaseLoaderScreen;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.load.SplashActor;
-import ru.nemodev.towerbuilder.manager.GameLocationManager;
+import ru.nemodev.towerbuilder.manager.GameBuilderManager;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.screen.main.MainScreen;
 
@@ -66,14 +66,14 @@ public class SplashScreen extends BaseLoaderScreen
 
     private void loadGameLocation()
     {
-        ResourceLoader.getInstance().loadLocation(GameLocationLoaderConstant.LOCATION_FOR_LOADING);
+        ResourceLoader.getInstance().loadLocation(GameLoaderConstant.DESCRIPTION_FOR_LOADING);
     }
 
     @Override
     protected void doAfterLoadResource()
     {
         PhysicManager.getInstance().preparePhysicBodies();
-        GameLocationManager.getInstance().prepareLocations();
+        GameBuilderManager.getInstance().prepareLocations();
 
         GameManager.getInstance().getScreenManager().popScreen();
         GameManager.getInstance().getScreenManager().pushScreen(new MainScreen());

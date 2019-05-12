@@ -1,4 +1,4 @@
-package ru.nemodev.towerbuilder.entity.game.location.level.block;
+package ru.nemodev.towerbuilder.entity.game.description.mode.block;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
 

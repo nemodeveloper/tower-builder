@@ -1,11 +1,11 @@
-package ru.nemodev.towerbuilder.entity.game.location.level.background;
+package ru.nemodev.towerbuilder.entity.game.description.pack.background;
 
-public class BackgroundDescription
+public class BackgroundPackDescription
 {
     private String staticTexture;
     private String animationAtlas;
 
-    public BackgroundDescription()
+    public BackgroundPackDescription()
     { }
 
     public String getStaticTexture()

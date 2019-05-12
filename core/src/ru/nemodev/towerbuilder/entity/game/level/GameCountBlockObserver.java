@@ -1,13 +1,13 @@
 package ru.nemodev.towerbuilder.entity.game.level;
 
-import ru.nemodev.towerbuilder.entity.game.location.level.strategy.WinStrategyDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.strategy.StrategyDescription;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
 
 public class GameCountBlockObserver extends GameObserver
 {
-    public GameCountBlockObserver(WinStrategyDescription winStrategyDescription, TowerBlockGenerator towerBlockGenerator)
+    public GameCountBlockObserver(StrategyDescription strategyDescription, TowerBlockGenerator towerBlockGenerator)
     {
-        super(winStrategyDescription, towerBlockGenerator);
+        super(strategyDescription, towerBlockGenerator);
     }
 
     @Override

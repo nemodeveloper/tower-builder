@@ -17,10 +17,11 @@ import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
+import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
+import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.level.GameCountBlockObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameScoreActor;
-import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
@@ -32,7 +33,8 @@ import ru.nemodev.towerbuilder.manager.GameManager;
  */
 public class GameScene extends Box2dScene
 {
-    private LevelDescription levelDescription;
+    private final ModeDescription modeDescription;
+    private final LocationPackDescription locationPackDescription;
 
     private Music musicBackground;
     private GroundActor groundActor;
@@ -42,12 +44,14 @@ public class GameScene extends Box2dScene
     private TowerBlockGenerator towerBlockGenerator;
 
     private PlayerActor playerActor;
-    private GameScoreActor gameScoreActor;
 
-    public GameScene(World world, Batch batch, LevelDescription levelDescription)
+    public GameScene(World world, Batch batch,
+                     ModeDescription modeDescription,
+                     LocationPackDescription locationPackDescription)
     {
         super(world, batch);
-        this.levelDescription = levelDescription;
+        this.modeDescription = modeDescription;
+        this.locationPackDescription = locationPackDescription;
 
         init();
     }
@@ -59,7 +63,7 @@ public class GameScene extends Box2dScene
         initBorder();
         initGameObserver();
 
-        musicBackground = SoundManager.getInstance().getMusic(levelDescription.getMainMusic(), true);
+        musicBackground = SoundManager.getInstance().getMusic(locationPackDescription.getMainMusic(), true);
         if (ConfigManager.getInstance().isEnableSound())
         {
             musicBackground.play();
@@ -71,7 +75,10 @@ public class GameScene extends Box2dScene
         towerManager = new TowerManager(world);
         addGameObject(towerManager);
 
-        towerBlockGenerator = new TowerBlockGenerator(world, towerManager, levelDescription.getMoveBlockDescription());
+        towerBlockGenerator = new TowerBlockGenerator(world, towerManager,
+                modeDescription.getMoveBlockDescription(),
+                locationPackDescription.getBlockPackDescription());
+
         addGameObject(towerBlockGenerator);
     }
 
@@ -86,14 +93,14 @@ public class GameScene extends Box2dScene
     {
         Fixture groundFixture = Box2dObjectBuilder.createBoxFixture(
                 world, ConstantBox2dBodyType.GROUND,
-                levelDescription.getGroundDescription().getPosition(),
-                levelDescription.getGroundDescription().getWidth(), levelDescription.getGroundDescription().getHeight());
+                modeDescription.getGroundDescription().getPosition(),
+                modeDescription.getGroundDescription().getWidth(), modeDescription.getGroundDescription().getHeight());
         Body groundBody = groundFixture.getBody();
         groundBody.setFixedRotation(true);
 
         Box2DSprite groundSprite = SpriteUtils.createBox2d(
                 BorderTextureConstant.GROUND_ATLAS,
-                levelDescription.getGroundDescription().getTexture());
+                locationPackDescription.getGroundPackDescription().getStaticTexture());
 
         groundActor = new GroundActor(world, groundSprite, groundFixture);
 
@@ -102,7 +109,7 @@ public class GameScene extends Box2dScene
 
     private void initGameObserver()
     {
-        gameObserver = new GameCountBlockObserver(levelDescription.getWinStrategyDescription(), towerBlockGenerator);
+        gameObserver = new GameCountBlockObserver(modeDescription.getStrategyDescription(), towerBlockGenerator);
         towerManager.setTowerEventListener(gameObserver);
         playerActor.setPlayerEventListener(gameObserver);
 

@@ -1,24 +1,12 @@
-package ru.nemodev.towerbuilder.entity.game.location.level.strategy;
+package ru.nemodev.towerbuilder.entity.game.description.mode.strategy;
 
-public class WinStrategyDescription
+public class StrategyDescription
 {
-    private StrategyType type;
     private int count;
-
     private int towerHeight;
 
-    public WinStrategyDescription()
+    public StrategyDescription()
     { }
-
-    public StrategyType getType()
-    {
-        return type;
-    }
-
-    public void setType(StrategyType type)
-    {
-        this.type = type;
-    }
 
     public int getCount()
     {

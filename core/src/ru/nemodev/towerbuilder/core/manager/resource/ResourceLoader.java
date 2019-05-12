@@ -14,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import ru.nemodev.towerbuilder.core.manager.resource.game.GameLocationLoader;
-import ru.nemodev.towerbuilder.core.manager.resource.game.GameLocationParser;
+import ru.nemodev.towerbuilder.core.manager.resource.game.GameDescriptionLoader;
+import ru.nemodev.towerbuilder.core.manager.resource.game.GameDescriptionParser;
 import ru.nemodev.towerbuilder.core.physic.BodyEditorLoader;
 
 /**
@@ -31,7 +31,7 @@ public final class ResourceLoader implements Disposable
     {
         this.assetManager = new AssetManager();
         this.assetManager.setLoader(BodyEditorLoader.class, new PhysicBodyEditorLoader(assetManager.getFileHandleResolver()));
-        this.assetManager.setLoader(GameLocationParser.class, new GameLocationLoader(assetManager.getFileHandleResolver()));
+        this.assetManager.setLoader(GameDescriptionParser.class, new GameDescriptionLoader(assetManager.getFileHandleResolver()));
     }
 
     public static ResourceLoader getInstance()
@@ -131,12 +131,12 @@ public final class ResourceLoader implements Disposable
     // game level
     public void loadLocation(Set<String> locationPathList)
     {
-        loadAssets(locationPathList, GameLocationParser.class);
+        loadAssets(locationPathList, GameDescriptionParser.class);
     }
 
-    public GameLocationParser getGameLocationParser(String locationPath)
+    public GameDescriptionParser getGameLocationParser(String locationPath)
     {
-        return assetManager.get(locationPath, GameLocationParser.class);
+        return assetManager.get(locationPath, GameDescriptionParser.class);
     }
 
 }

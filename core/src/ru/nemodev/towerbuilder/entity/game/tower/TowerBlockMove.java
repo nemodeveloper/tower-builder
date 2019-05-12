@@ -13,8 +13,8 @@ import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.entity.game.Box2dBodyType;
-import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveBlockDescription;
-import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveType;
+import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveBlockDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveType;
 
 public class TowerBlockMove extends Box2dActor
 {

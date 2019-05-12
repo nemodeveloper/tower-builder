@@ -2,7 +2,7 @@ package ru.nemodev.towerbuilder.entity.game.level;
 
 import ru.nemodev.towerbuilder.core.model.BaseActor;
 import ru.nemodev.towerbuilder.core.model.GameObject;
-import ru.nemodev.towerbuilder.entity.game.location.level.strategy.WinStrategyDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.strategy.StrategyDescription;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlock;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
@@ -11,16 +11,16 @@ import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
 
 public abstract class GameObserver extends BaseActor implements TowerManager.TowerEventListener, PlayerActor.PlayerEventListener
 {
-    protected final WinStrategyDescription winStrategyDescription;
+    protected final StrategyDescription strategyDescription;
     protected final TowerBlockGenerator towerBlockGenerator;
 
     protected final GameScoreActor gameScoreActor;
 
-    public GameObserver(WinStrategyDescription winStrategyDescription, TowerBlockGenerator towerBlockGenerator)
+    public GameObserver(StrategyDescription strategyDescription, TowerBlockGenerator towerBlockGenerator)
     {
-        this.winStrategyDescription = winStrategyDescription;
+        this.strategyDescription = strategyDescription;
         this.towerBlockGenerator = towerBlockGenerator;
-        this.gameScoreActor = new GameScoreActor(winStrategyDescription.getCount());
+        this.gameScoreActor = new GameScoreActor(strategyDescription.getCount());
         setVisible(false);
     }
 
@@ -28,7 +28,7 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
     public void maxHeightChange(TowerBlock towerBlock)
     {
         // TODO реализовать проверку на победу
-//        if (towerBlock.getPosition().y >= winStrategyDescription.getTowerHeight())
+//        if (towerBlock.getPosition().y >= strategyDescription.getTowerHeight())
 //        {
 //            GameManager.getInstance().setGameStatus(GameStatus.GAME_WIN);
 //        }

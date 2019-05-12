@@ -1,14 +1,14 @@
 package ru.nemodev.towerbuilder.entity.game.level;
 
-import ru.nemodev.towerbuilder.entity.game.location.level.strategy.WinStrategyDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.strategy.StrategyDescription;
 
 public class GameTimeLimitObserver extends GameObserver
 {
     private float oneSecTimer;
 
-    public GameTimeLimitObserver(WinStrategyDescription winStrategyDescription)
+    public GameTimeLimitObserver(StrategyDescription strategyDescription)
     {
-        super(winStrategyDescription, null);
+        super(strategyDescription, null);
         this.oneSecTimer = 0.f;
     }
 

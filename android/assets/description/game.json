@@ -1,0 +1,84 @@
+{
+  "modeDescriptionList": [
+    {
+      "modeType": "time",
+      "staticTexture": "mock",
+      "strategyDescription" : {
+        "count" : 20,
+        "towerHeight" : 15
+      },
+      "moveBlockDescription": {
+        "moveType" : "line",
+        "minAngle": 0,
+        "maxAngle": 180,
+        "minDistanceY" : 7,
+        "startSize": 1.5,
+        "startSpeed": 9,
+        "physicDescription": {
+          "density": 1,
+          "friction": 100,
+          "restitution": 0
+        }
+      },
+      "groundDescription": {
+        "position": {
+          "x": 4.5,
+          "y": 0.5
+        },
+        "width": 6,
+        "height": 1
+      }
+    },
+    {
+      "modeType": "count",
+      "staticTexture": "mock",
+      "strategyDescription" : {
+        "count" : 20,
+        "towerHeight" : 15
+      },
+      "moveBlockDescription": {
+        "moveType" : "line",
+        "minAngle": 0,
+        "maxAngle": 180,
+        "minDistanceY" : 7,
+        "startSize": 1.5,
+        "startSpeed": 8,
+        "physicDescription": {
+          "density": 1,
+          "friction": 100,
+          "restitution": 0
+        }
+      },
+      "groundDescription": {
+        "position": {
+          "x": 4.5,
+          "y": 0.5
+        },
+        "width": 6,
+        "height": 1
+      }
+    }
+  ],
+
+  "locationPackDescriptionList":[
+    {
+      "name": "Mock",
+      "key": "test",
+      "previewTexture": "Mock",
+      "mainMusic": "main_theme.mp3",
+      "backgroundPackDescription": {
+        "staticTexture" : "game_background",
+        "animationAtlas" : "mock.atlas"
+      },
+      "groundPackDescription": {
+        "staticTexture": "ground"
+      },
+      "blockPackDescription": {
+        "staticAtlas": "tower_block_simple.atlas",
+        "animationAtlas" : [
+          "mock.atlas"
+        ]
+      }
+    }
+  ]
+}

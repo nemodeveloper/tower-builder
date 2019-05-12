@@ -8,7 +8,8 @@ import com.badlogic.gdx.utils.Array;
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
 import ru.nemodev.towerbuilder.core.scene.Scene;
 import ru.nemodev.towerbuilder.core.screen.BaseScreen;
-import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
+import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.scene.game.GameBackgroundScene;
 import ru.nemodev.towerbuilder.scene.game.GameScene;
@@ -19,17 +20,20 @@ import ru.nemodev.towerbuilder.scene.game.GameUIScene;
  */
 public class GameScreen extends BaseScreen
 {
-    private LevelDescription levelDescription;
+    private final ModeDescription modeDescription;
+    private final LocationPackDescription locationPackDescription;
 
     private GameBackgroundScene gameBackgroundScene;
     private GameScene gameScene;
     private GameUIScene gameUIScene;
 
-    public GameScreen(LevelDescription levelDescription)
+    public GameScreen(ModeDescription modeDescription, LocationPackDescription locationPackDescription)
     {
         super(new Array<Scene>());
 
-        this.levelDescription = levelDescription;
+        this.modeDescription = modeDescription;
+        this.locationPackDescription = locationPackDescription;
+
         Batch batch = GameManager.getInstance().getSpriteBatch();
 
         initBackgroundScene(batch);
@@ -40,14 +44,14 @@ public class GameScreen extends BaseScreen
     private void initBackgroundScene(Batch batch)
     {
 
-        gameBackgroundScene = new GameBackgroundScene(batch, levelDescription.getBackgroundDescription());
+        gameBackgroundScene = new GameBackgroundScene(batch, locationPackDescription.getBackgroundPackDescription());
         addScene(gameBackgroundScene);
     }
 
     private void initGameScene(Batch batch)
     {
         gameScene = new GameScene(new World(new Vector2(0.f, -10.f), false),
-                batch, levelDescription);
+                batch, modeDescription, locationPackDescription);
 
         addScene(gameScene);
     }
