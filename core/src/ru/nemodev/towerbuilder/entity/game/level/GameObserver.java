@@ -14,13 +14,14 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
     protected final WinStrategyDescription winStrategyDescription;
     protected final TowerBlockGenerator towerBlockGenerator;
 
-    protected int droppedBlock;
+    protected final GameScoreActor gameScoreActor;
 
     public GameObserver(WinStrategyDescription winStrategyDescription, TowerBlockGenerator towerBlockGenerator)
     {
         this.winStrategyDescription = winStrategyDescription;
         this.towerBlockGenerator = towerBlockGenerator;
-        this.droppedBlock = 0;
+        this.gameScoreActor = new GameScoreActor(winStrategyDescription.getCount());
+        setVisible(false);
     }
 
     @Override
@@ -33,14 +34,20 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
 //        }
 //        else
 //        {
-            towerBlockGenerator.changeHeightPos(towerBlock);
+            towerBlockGenerator.maxHeightChange(towerBlock);
 //        }
+    }
+
+    @Override
+    public void setReadyForDropBlock(boolean isReady)
+    {
+        towerBlockGenerator.setReadyForDropBlock(isReady);
     }
 
     @Override
     public void playerDropBlock()
     {
-        ++droppedBlock;
+
     }
 
     @Override
@@ -49,9 +56,9 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
         return null;
     }
 
-    @Override
-    public boolean isVisible()
+    public GameScoreActor getGameScoreActor()
     {
-        return false;
+        return gameScoreActor;
     }
+
 }

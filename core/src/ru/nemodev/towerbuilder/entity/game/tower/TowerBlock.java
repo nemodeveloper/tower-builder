@@ -17,14 +17,21 @@ public class TowerBlock extends Box2dActor
     private final Fixture blockFixture;
 
     private boolean onTower;
+    private boolean isNotifyReadyToDrop;
 
-    public TowerBlock(World world, Box2DSprite blockSpite, Fixture blockFixture)
+    private final TowerManager.TowerEventListener towerEventListener;
+
+    public TowerBlock(World world, Box2DSprite blockSpite, Fixture blockFixture,
+                      TowerManager.TowerEventListener towerEventListener)
     {
         super(world);
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
         this.blockFixture.setUserData(this);
+        this.towerEventListener = towerEventListener;
+
         this.onTower = false;
+        this.isNotifyReadyToDrop = false;
     }
 
     public Vector2 getPosition()
@@ -43,11 +50,21 @@ public class TowerBlock extends Box2dActor
                 && Math.abs(blockFixture.getBody().getLinearVelocity().x) < 0.3f;
     }
 
+    private void notifyReadyToDropBlock()
+    {
+        if (!isNotifyReadyToDrop)
+        {
+            isNotifyReadyToDrop = true;
+            towerEventListener.setReadyForDropBlock(true);
+        }
+    }
+
     @Override
     public void beginContact(Contactable contactable)
     {
         if (contactable instanceof TowerBlock || contactable instanceof GroundActor)
         {
+            notifyReadyToDropBlock();
             onTower = true;
         }
     }
@@ -72,6 +89,7 @@ public class TowerBlock extends Box2dActor
     {
         if (blockFixture.getBody().getPosition().y < 0)
         {
+            notifyReadyToDropBlock();
             remove();
         }
     }

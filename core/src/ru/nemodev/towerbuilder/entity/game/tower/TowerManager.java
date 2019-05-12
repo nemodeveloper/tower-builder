@@ -12,6 +12,7 @@ public class TowerManager extends Box2dActor
     public interface TowerEventListener
     {
         void maxHeightChange(TowerBlock towerBlock);
+        void setReadyForDropBlock(boolean isReady);
     }
 
     private TowerEventListener towerEventListener;

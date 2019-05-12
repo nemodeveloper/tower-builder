@@ -19,6 +19,7 @@ import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
 import ru.nemodev.towerbuilder.entity.game.level.GameCountBlockObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameObserver;
+import ru.nemodev.towerbuilder.entity.game.level.GameScoreActor;
 import ru.nemodev.towerbuilder.entity.game.location.level.LevelDescription;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
@@ -41,6 +42,7 @@ public class GameScene extends Box2dScene
     private TowerBlockGenerator towerBlockGenerator;
 
     private PlayerActor playerActor;
+    private GameScoreActor gameScoreActor;
 
     public GameScene(World world, Batch batch, LevelDescription levelDescription)
     {
@@ -105,6 +107,11 @@ public class GameScene extends Box2dScene
         playerActor.setPlayerEventListener(gameObserver);
 
         addGameObject(gameObserver);
+    }
+
+    public GameScoreActor getGameScoreActor()
+    {
+        return gameObserver.getGameScoreActor();
     }
 
     @Override

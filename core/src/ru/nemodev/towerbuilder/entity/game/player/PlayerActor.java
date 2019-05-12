@@ -15,13 +15,10 @@ public class PlayerActor extends Box2dActor
         void playerDropBlock();
     }
 
-    private static final float DELAY_DROP_TIME = 1.6f;
-
     private final TowerBlockGenerator towerBlockGenerator;
     private PlayerEventListener playerEventListener;
 
     private TowerBlockMove towerBlockMove;
-    private float delayDrop;
 
     private volatile boolean isTouch;
 
@@ -31,7 +28,6 @@ public class PlayerActor extends Box2dActor
 
         this.towerBlockGenerator = towerBlockGenerator;
         this.isTouch = false;
-        this.delayDrop = DELAY_DROP_TIME;
     }
 
     public void setPlayerEventListener(PlayerEventListener playerEventListener)
@@ -61,12 +57,8 @@ public class PlayerActor extends Box2dActor
     {
         if (towerBlockMove == null)
         {
-            delayDrop += delta;
-
-            // TODO это хак - нужно следить за тем как кубик упадет на землю или пропасть
-            if (delayDrop >= DELAY_DROP_TIME)
+            if (towerBlockGenerator.isReadyForDropBlock())
             {
-                delayDrop = 0.f;
                 towerBlockMove = towerBlockGenerator.generate();
                 addGameObject(towerBlockMove);
             }

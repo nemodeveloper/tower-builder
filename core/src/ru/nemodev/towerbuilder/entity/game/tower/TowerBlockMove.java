@@ -24,6 +24,8 @@ public class TowerBlockMove extends Box2dActor
 
     private final MoveBlockDescription moveBlockDescription;
 
+    private final TowerManager.TowerEventListener towerEventListener;
+
     private final float size;
     private final float halfSize;
     private float speed;
@@ -37,13 +39,15 @@ public class TowerBlockMove extends Box2dActor
                           TowerManager towerManager,
                           Box2DSprite blockSpite,
                           Fixture blockFixture,
-                          MoveBlockDescription moveBlockDescription)
+                          MoveBlockDescription moveBlockDescription,
+                          TowerManager.TowerEventListener towerEventListener)
     {
         super(world);
         this.towerManager = towerManager;
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
         this.moveBlockDescription = moveBlockDescription;
+        this.towerEventListener = towerEventListener;
 
         this.size = moveBlockDescription.getStartSize();
         this.halfSize = size / 2.f;
@@ -96,7 +100,7 @@ public class TowerBlockMove extends Box2dActor
         else
         {
             angle += 1.f * speed;
-            float x = centre.x + MathUtils.cosDeg(angle) * GameConstant.HALF_X;
+            float x = centre.x + MathUtils.cosDeg(angle) * (GameConstant.HALF_X - halfSize);
             float y = centre.y + MathUtils.sinDeg(angle) * GameConstant.HALF_X;
             if (angle >= moveBlockDescription.getMaxAngle()
                     || angle <= moveBlockDescription.getMinAngle())
@@ -153,11 +157,12 @@ public class TowerBlockMove extends Box2dActor
     {
         setVisible(false);
         setNeedRemove(true);
+        towerEventListener.setReadyForDropBlock(false);
 
         Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world, box2dBodyType,
                 blockFixture.getBody().getPosition(),  size, size);
 
-        TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture);
+        TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture, towerEventListener);
         towerManager.addGameObject(towerBlock);
 
         return towerBlock;

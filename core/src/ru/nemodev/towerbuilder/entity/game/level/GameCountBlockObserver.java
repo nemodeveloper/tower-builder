@@ -13,11 +13,6 @@ public class GameCountBlockObserver extends GameObserver
     @Override
     public void playerDropBlock()
     {
-        super.playerDropBlock();
-
-        if (droppedBlock >= winStrategyDescription.getCount())
-        {
-//            GameManager.getInstance().setGameStatus(GameStatus.GAME_OVER);
-        }
+        gameScoreActor.addEnableCount(-1);
     }
 }

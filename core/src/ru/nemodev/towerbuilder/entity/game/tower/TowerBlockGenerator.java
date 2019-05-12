@@ -17,7 +17,7 @@ import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.location.level.block.MoveBlockDescription;
 
 
-public class TowerBlockGenerator extends Box2dActor
+public class TowerBlockGenerator extends Box2dActor implements TowerManager.TowerEventListener
 {
     private final TowerManager towerManager;
     private final MoveBlockDescription moveBlockDescription;
@@ -29,6 +29,8 @@ public class TowerBlockGenerator extends Box2dActor
 
     private TowerBlockMove lastTowerBlockMove;
 
+    private boolean readyForDropBlock;
+
     public TowerBlockGenerator(World world, TowerManager towerManager, MoveBlockDescription moveBlockDescription)
     {
         super(world);
@@ -38,6 +40,7 @@ public class TowerBlockGenerator extends Box2dActor
         this.currentSpeed = moveBlockDescription.getStartSpeed();
         this.currentPosY = GameConstant.HALF_Y;
         this.minDistanceY = moveBlockDescription.getMinDistanceY();
+        this.readyForDropBlock = true;
 
         setVisible(false);
     }
@@ -77,12 +80,14 @@ public class TowerBlockGenerator extends Box2dActor
                 towerManager,
                 towerBlockSprite,
                 towerBlockFixture,
-                moveBlockDescription);
+                moveBlockDescription,
+                this);
 
         return lastTowerBlockMove;
     }
 
-    public void changeHeightPos(TowerBlock towerBlock)
+    @Override
+    public void maxHeightChange(TowerBlock towerBlock)
     {
         OrthographicCamera camera = getScene().getCamera();
 
@@ -93,5 +98,16 @@ public class TowerBlockGenerator extends Box2dActor
         }
 
         camera.update();
+    }
+
+    @Override
+    public void setReadyForDropBlock(boolean isReady)
+    {
+        readyForDropBlock = isReady;
+    }
+
+    public boolean isReadyForDropBlock()
+    {
+        return readyForDropBlock;
     }
 }

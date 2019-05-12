@@ -55,6 +55,7 @@ public class GameScreen extends BaseScreen
     private void initGameUIScene(Batch batch)
     {
         gameUIScene = new GameUIScene(batch, gameScene.getSoundEventListener());
+        gameUIScene.addGameObject(gameScene.getGameScoreActor());
         addScene(gameUIScene);
     }
 
