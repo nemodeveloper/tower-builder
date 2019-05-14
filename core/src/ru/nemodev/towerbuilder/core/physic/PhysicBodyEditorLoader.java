@@ -1,4 +1,4 @@
-package ru.nemodev.towerbuilder.core.manager.resource;
+package ru.nemodev.towerbuilder.core.physic;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -7,8 +7,6 @@ import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-
-import ru.nemodev.towerbuilder.core.physic.BodyEditorLoader;
 
 public class PhysicBodyEditorLoader extends AsynchronousAssetLoader<BodyEditorLoader, PhysicBodyEditorLoader.PhysicLoaderParameter>
 {

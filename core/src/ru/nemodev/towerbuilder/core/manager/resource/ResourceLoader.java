@@ -17,6 +17,7 @@ import java.util.Set;
 import ru.nemodev.towerbuilder.core.manager.resource.game.GameDescriptionLoader;
 import ru.nemodev.towerbuilder.core.manager.resource.game.GameDescriptionParser;
 import ru.nemodev.towerbuilder.core.physic.BodyEditorLoader;
+import ru.nemodev.towerbuilder.core.physic.PhysicBodyEditorLoader;
 
 /**
  * created by NemoDev on 08.05.2018 - 20:06

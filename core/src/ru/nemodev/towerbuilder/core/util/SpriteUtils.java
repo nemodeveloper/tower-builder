@@ -94,6 +94,16 @@ public final class SpriteUtils
         return box2DSprite;
     }
 
+    public static Box2DSprite createRandomBox2d(String atlasName,
+                                                float width, float height,
+                                                float posX, float posY)
+    {
+        Box2DSprite sprite = createRandomBox2d(atlasName);
+        setBounds(sprite, width, height, posX, posY);
+
+        return sprite;
+    }
+
     public static Animation<TextureRegion> createAnimation(String atlasName, float frameDuration, Animation.PlayMode playMode)
     {
         Array<Sprite> sprites = ResourceLoader.getInstance().getSprites(atlasName);

@@ -2,20 +2,12 @@ package ru.nemodev.towerbuilder.scene.game;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
-import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
-
-import ru.nemodev.towerbuilder.constant.texture.location.GameLocationTextureFinder;
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.manager.resource.SoundManager;
 import ru.nemodev.towerbuilder.core.manager.system.ConfigManager;
 import ru.nemodev.towerbuilder.core.scene.Box2dScene;
-import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
-import ru.nemodev.towerbuilder.core.util.SpriteUtils;
-import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
 import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
@@ -91,17 +83,9 @@ public class GameScene extends Box2dScene
 
     private void initBorder()
     {
-        Fixture groundFixture = Box2dObjectBuilder.createBoxFixture(
-                world, ConstantBox2dBodyType.GROUND,
-                modeDescription.getGroundDescription().getPosition(),
-                modeDescription.getGroundDescription().getWidth(), modeDescription.getGroundDescription().getHeight());
-        Body groundBody = groundFixture.getBody();
-        groundBody.setFixedRotation(true);
-
-        Box2DSprite groundSprite = SpriteUtils.createBox2d(
-                locationPackDescription.getGroundAtlas(), GameLocationTextureFinder.STATIC_GROUND_TEXTURE_KEY);
-
-        groundActor = new GroundActor(world, groundSprite, groundFixture);
+        groundActor = new GroundActor(world,
+                modeDescription.getGroundDescription(),
+                locationPackDescription.getGroundAtlas());
 
         addGameObject(groundActor);
     }
