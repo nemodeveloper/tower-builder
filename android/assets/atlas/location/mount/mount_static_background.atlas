@@ -1,0 +1,13 @@
+
+mount_static_background.png
+size: 1440,2880
+format: RGBA8888
+filter: MipMapLinearLinear,MipMapLinearLinear
+repeat: none
+background
+  rotate: false
+  xy: 0, 0
+  size: 1440, 2880
+  orig: 1440, 2880
+  offset: 0, 0
+  index: -1

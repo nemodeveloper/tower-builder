@@ -3,9 +3,9 @@ package ru.nemodev.towerbuilder.screen.load;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.SoundConstant;
-import ru.nemodev.towerbuilder.constant.level.GameLoaderConstant;
+import ru.nemodev.towerbuilder.constant.game.GameLoaderConstant;
 import ru.nemodev.towerbuilder.constant.texture.AtlasLoaderConstant;
-import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureConstant;
+import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureFinder;
 import ru.nemodev.towerbuilder.core.manager.resource.FontManager;
 import ru.nemodev.towerbuilder.core.manager.resource.PhysicManager;
 import ru.nemodev.towerbuilder.core.manager.resource.ResourceLoader;
@@ -31,7 +31,7 @@ public class SplashScreen extends BaseLoaderScreen
         super();
 
         BaseScene baseScene = new BaseScene(GameManager.getInstance().getSpriteBatch());
-        splashActor = SpriteUtils.create(BackgroundTextureConstant.SPLASH, METERS_X, METERS_Y, HALF_X, HALF_Y);
+        splashActor = SpriteUtils.create(BackgroundTextureFinder.SPLASH, METERS_X, METERS_Y, HALF_X, HALF_Y);
         baseScene.addGameObject(new SplashActor(splashActor));
 
         addScene(baseScene);

@@ -4,11 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.GameConstant;
-import ru.nemodev.towerbuilder.constant.texture.BackgroundTextureConstant;
+import ru.nemodev.towerbuilder.constant.texture.location.GameLocationTextureFinder;
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.background.GameBackgroundActor;
-import ru.nemodev.towerbuilder.entity.game.description.pack.background.BackgroundPackDescription;
+import ru.nemodev.towerbuilder.entity.game.description.location.background.BackgroundPackDescription;
 import ru.nemodev.towerbuilder.manager.GameManager;
 
 public class GameBackgroundScene extends BaseScene
@@ -27,7 +27,7 @@ public class GameBackgroundScene extends BaseScene
     private void init()
     {
         Sprite backgroundSprite = SpriteUtils.create(
-                BackgroundTextureConstant.BACKGROUND_ATLAS, backgroundPackDescription.getStaticTexture(),
+                backgroundPackDescription.getStaticBackgorundAtlas(), GameLocationTextureFinder.STATIC_BACKGROUND_TEXTURE_KEY,
                 GameConstant.METERS_X, GameConstant.METERS_Y,
                 GameConstant.HALF_X, GameConstant.HALF_Y);
 

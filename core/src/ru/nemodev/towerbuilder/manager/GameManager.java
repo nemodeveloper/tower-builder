@@ -103,7 +103,7 @@ public final class GameManager
                         getScreenManager().pushScreen(
                                 new GameScreen(
                                         GameBuilderManager.getInstance().getModeDescription(ModeType.count),
-                                        GameBuilderManager.getInstance().getLocationPackDescription("test")));
+                                        GameBuilderManager.getInstance().getLocationPackDescription("ice")));
                     }
                     return true;
                 }

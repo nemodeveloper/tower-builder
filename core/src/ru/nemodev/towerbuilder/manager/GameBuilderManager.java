@@ -3,12 +3,12 @@ package ru.nemodev.towerbuilder.manager;
 import java.util.HashMap;
 import java.util.Map;
 
-import ru.nemodev.towerbuilder.constant.level.GameLoaderConstant;
+import ru.nemodev.towerbuilder.constant.game.GameLoaderConstant;
 import ru.nemodev.towerbuilder.core.manager.resource.ResourceLoader;
 import ru.nemodev.towerbuilder.entity.game.description.GameDescription;
+import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeType;
-import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 
 public class GameBuilderManager
 {

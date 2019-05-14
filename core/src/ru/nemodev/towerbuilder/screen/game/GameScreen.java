@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.Array;
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
 import ru.nemodev.towerbuilder.core.scene.Scene;
 import ru.nemodev.towerbuilder.core.screen.BaseScreen;
+import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
-import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 import ru.nemodev.towerbuilder.manager.GameManager;
 import ru.nemodev.towerbuilder.scene.game.GameBackgroundScene;
 import ru.nemodev.towerbuilder.scene.game.GameScene;
@@ -43,7 +43,6 @@ public class GameScreen extends BaseScreen
 
     private void initBackgroundScene(Batch batch)
     {
-
         gameBackgroundScene = new GameBackgroundScene(batch, locationPackDescription.getBackgroundPackDescription());
         addScene(gameBackgroundScene);
     }

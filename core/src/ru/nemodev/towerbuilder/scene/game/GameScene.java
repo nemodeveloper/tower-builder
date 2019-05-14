@@ -8,7 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
-import ru.nemodev.towerbuilder.constant.texture.BorderTextureConstant;
+import ru.nemodev.towerbuilder.constant.texture.location.GameLocationTextureFinder;
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.manager.resource.SoundManager;
 import ru.nemodev.towerbuilder.core.manager.system.ConfigManager;
@@ -17,8 +17,8 @@ import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
+import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
-import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.level.GameCountBlockObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameScoreActor;
@@ -99,8 +99,7 @@ public class GameScene extends Box2dScene
         groundBody.setFixedRotation(true);
 
         Box2DSprite groundSprite = SpriteUtils.createBox2d(
-                BorderTextureConstant.GROUND_ATLAS,
-                locationPackDescription.getGroundPackDescription().getStaticTexture());
+                locationPackDescription.getGroundAtlas(), GameLocationTextureFinder.STATIC_GROUND_TEXTURE_KEY);
 
         groundActor = new GroundActor(world, groundSprite, groundFixture);
 

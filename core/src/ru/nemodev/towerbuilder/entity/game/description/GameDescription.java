@@ -2,8 +2,8 @@ package ru.nemodev.towerbuilder.entity.game.description;
 
 import java.util.List;
 
+import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
-import ru.nemodev.towerbuilder.entity.game.description.pack.LocationPackDescription;
 
 public class GameDescription
 {

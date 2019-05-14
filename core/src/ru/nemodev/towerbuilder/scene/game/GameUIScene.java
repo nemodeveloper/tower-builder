@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.GameConstant;
-import ru.nemodev.towerbuilder.constant.texture.UITextureConstant;
+import ru.nemodev.towerbuilder.constant.texture.UITextureFinder;
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.model.ButtonActor;
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
@@ -43,12 +43,12 @@ public class GameUIScene extends BaseScene
         float shift = pauseSize * 0.75f;
 
         Sprite pauseSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_PAUSE,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_PAUSE,
                 pauseSize, pauseSize,
                 shift, GameConstant.METERS_Y - shift);
 
         Sprite pauseSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_PAUSE_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_PAUSE_TOUCHED,
                 pauseSize, pauseSize,
                 shift, GameConstant.METERS_Y - shift);
 
@@ -77,7 +77,7 @@ public class GameUIScene extends BaseScene
         final float basePosY = GameConstant.METERS_Y / 2.f;
 
         Sprite backgroundPauseSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.GAME_STATUS_BOARD,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.GAME_STATUS_BOARD,
                 8.f, 8.f, basePosX, basePosY);
 
         pausePopUpActor = new PausePopUpActor(backgroundPauseSprite);
@@ -85,11 +85,11 @@ public class GameUIScene extends BaseScene
         final float buttonSize = 1.6f;
 
         Sprite startGameSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_START,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START,
                 buttonSize, buttonSize, basePosX, basePosY);
 
         Sprite startGameSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_START_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START_TOUCHED,
                 buttonSize, buttonSize, basePosX, basePosY);
 
         ButtonActor startGameButton = new PauseButton(startGameSprite, startGameSpriteTouched,
@@ -109,11 +109,11 @@ public class GameUIScene extends BaseScene
                 });
 
         Sprite menuGameSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_MENU,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_MENU,
                 buttonSize, buttonSize, basePosX, basePosY - buttonSize);
 
         Sprite menuGameSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_MENU_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_MENU_TOUCHED,
                 buttonSize, buttonSize, basePosX, basePosY - buttonSize);
 
         ButtonActor menuButton = new ButtonActor(menuGameSprite, menuGameSpriteTouched)
@@ -127,30 +127,30 @@ public class GameUIScene extends BaseScene
         };
 
         Sprite soundOnSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_ON,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_ON,
                 buttonSize, buttonSize, basePosX - buttonSize, basePosY - buttonSize);
 
         Sprite soundOnSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_ON_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_ON_TOUCHED,
                 buttonSize, buttonSize, basePosX - buttonSize, basePosY - buttonSize);
 
         Sprite soundOffSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_OFF,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_OFF,
                 buttonSize, buttonSize, basePosX - buttonSize, basePosY - buttonSize);
 
         Sprite soundOffSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_OFF_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_OFF_TOUCHED,
                 buttonSize, buttonSize, basePosX - buttonSize, basePosY - buttonSize);
 
         MenuSoundButton menuSoundButton = new MenuSoundButton(soundOnSprite, soundOnSpriteTouched,
                 soundOffSprite, soundOffSpriteTouched, soundEventListener);
 
         Sprite ratingSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_RATING,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_RATING,
                 buttonSize, buttonSize, basePosX + buttonSize, basePosY - buttonSize);
 
         Sprite ratingSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_RATING_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_RATING_TOUCHED,
                 buttonSize, buttonSize, basePosX + buttonSize, basePosY - buttonSize);
 
         RatingButton ratingButton = new RatingButton(ratingSprite, ratingSpriteTouched);

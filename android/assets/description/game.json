@@ -62,22 +62,25 @@
 
   "locationPackDescriptionList":[
     {
-      "name": "Mock",
-      "key": "test",
-      "previewTexture": "Mock",
+      "name": "Лед",
+      "key": "ice",
       "mainMusic": "main_theme.mp3",
       "backgroundPackDescription": {
-        "staticTexture" : "game_background",
-        "animationAtlas" : "mock.atlas"
-      },
-      "groundPackDescription": {
-        "staticTexture": "ground"
+        "staticTexture" : true
       },
       "blockPackDescription": {
-        "staticAtlas": "tower_block_simple.atlas",
-        "animationAtlas" : [
-          "mock.atlas"
-        ]
+        "staticAtlas": true
+      }
+    },
+    {
+      "name": "Горы",
+      "key": "mount",
+      "mainMusic": "main_theme.mp3",
+      "backgroundPackDescription": {
+        "staticTexture" : true
+      },
+      "blockPackDescription": {
+        "staticAtlas": true
       }
     }
   ]

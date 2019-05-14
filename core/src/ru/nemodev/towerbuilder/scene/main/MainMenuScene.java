@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.GameConstant;
 import ru.nemodev.towerbuilder.constant.SoundConstant;
-import ru.nemodev.towerbuilder.constant.texture.UITextureConstant;
+import ru.nemodev.towerbuilder.constant.texture.UITextureFinder;
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.manager.resource.SoundManager;
 import ru.nemodev.towerbuilder.core.manager.system.ConfigManager;
@@ -53,11 +53,11 @@ public class MainMenuScene extends BaseScene
         float positionY = GameConstant.METERS_Y / 2.f + 0.5f;
 
         Sprite startSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_START,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START,
                 sizeX, sizeY, positionX, positionY);
 
         Sprite startSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_START_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START_TOUCHED,
                 sizeX, sizeY, positionX, positionY);
 
         startGameButton = new StartGameButton(startSprite, startSpriteTouched);
@@ -74,11 +74,11 @@ public class MainMenuScene extends BaseScene
         float positionY = GameConstant.METERS_Y / 2.f - 1.5f;
 
         Sprite exitSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_EXIT,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_EXIT,
                 sizeX, sizeY, positionX, positionY);
 
         Sprite exitSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_EXIT_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_EXIT_TOUCHED,
                 sizeX, sizeY, positionX, positionY);
 
         exitGameButton = new ExitGameButton(exitSprite, exitSpriteTouched);
@@ -100,17 +100,17 @@ public class MainMenuScene extends BaseScene
         float positionY = GameConstant.METERS_Y / 2.f - 1.5f;
 
         Sprite soundOnSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_ON,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_ON,
                 size, size, positionX, positionY);
         Sprite soundOnSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_ON_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_ON_TOUCHED,
                 size, size, positionX, positionY);
 
         Sprite soundOffSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_OFF,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_OFF,
                 size, size, positionX, positionY);
         Sprite soundOffSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_SOUND_OFF_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_SOUND_OFF_TOUCHED,
                 size, size, positionX, positionY);
 
         menuSoundButton = new MenuSoundButton(soundOnSprite, soundOnSpriteTouched,
@@ -142,11 +142,11 @@ public class MainMenuScene extends BaseScene
         float positionY = GameConstant.METERS_Y / 2.f - 1.5f;
 
         Sprite ratingSprite = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_RATING,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_RATING,
                 size, size, positionX, positionY);
 
         Sprite ratingSpriteTouched = SpriteUtils.create(
-                UITextureConstant.COMMON_UI_ATLAS, UITextureConstant.BUTTON_RATING_TOUCHED,
+                UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_RATING_TOUCHED,
                 size, size, positionX, positionY);
 
         ratingButton = new RatingButton(ratingSprite, ratingSpriteTouched);

@@ -14,8 +14,8 @@ import ru.nemodev.towerbuilder.core.model.GameObject;
 import ru.nemodev.towerbuilder.core.util.Box2dObjectBuilder;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
+import ru.nemodev.towerbuilder.entity.game.description.location.block.BlockPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveBlockDescription;
-import ru.nemodev.towerbuilder.entity.game.description.pack.block.BlockPackDescription;
 
 
 public class TowerBlockGenerator extends Box2dActor implements TowerManager.TowerEventListener
@@ -79,7 +79,7 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
                 ConstantBox2dBodyType.TOWER_BLOCK_MOVE, position,
                 currentBlockSize, currentBlockSize);
 
-        Box2DSprite towerBlockSprite = SpriteUtils.createRandomBox2d(blockPackDescription.getStaticAtlas());
+        Box2DSprite towerBlockSprite = SpriteUtils.createRandomBox2d(blockPackDescription.getStaticBlockAtlas());
 
         lastTowerBlockMove = new TowerBlockMove(world,
                 towerManager,
