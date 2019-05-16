@@ -3,8 +3,6 @@ package ru.nemodev.towerbuilder.manager.pool;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import ru.nemodev.towerbuilder.entity.game.background.BackgroundActor;
-
 /**
  * created by NemoDev on 08.05.2018 - 20:45
  */
@@ -19,7 +17,7 @@ public final class PoolManager
 
     private void initialize()
     {
-        Pools.set(BackgroundActor.class, SimplePool.backgroundActorPool);
+
     }
 
     public static PoolManager getInstance()
