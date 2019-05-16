@@ -62,7 +62,7 @@ public class TowerBlock extends Box2dActor
         if (!isDropSoundPlayed)
         {
             isDropSoundPlayed = true;
-            SoundManager.getInstance().playSound(SoundConstant.BTN_CLICK);
+            SoundManager.getInstance().playSound(SoundConstant.BOX_DROP);
         }
     }
 
