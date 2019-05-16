@@ -62,8 +62,9 @@
 
   "locationPackDescriptionList":[
     {
-      "name": "Лед",
-      "key": "ice",
+      "name": "Горы",
+      "key": "mount",
+      "locationCoast": 5,
       "mainMusic": "main_theme.mp3",
       "backgroundPackDescription": {
         "staticTexture" : true
@@ -73,8 +74,9 @@
       }
     },
     {
-      "name": "Горы",
-      "key": "mount",
+      "name": "Лед",
+      "key": "ice",
+      "locationCoast": 10,
       "mainMusic": "main_theme.mp3",
       "backgroundPackDescription": {
         "staticTexture" : true

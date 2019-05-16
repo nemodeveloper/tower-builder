@@ -125,8 +125,6 @@ public class TowerBlockMove extends Box2dActor
         Vector3 cameraPos = getScene().getCamera().position;
         final float timeToMove = 0.1f;
 
-        // TODO нельзя завязываться на Y т/к он разный из-за ExtendViewPort - на разных экранах по разному отображается высота
-        // подумать и реализовать более верный алгоритм передвижения камеры
         float candidatePosY = moveBlockPos.y - GameConstant.HALF_Y + size;
         if (candidatePosY > GameConstant.HALF_Y)
         {

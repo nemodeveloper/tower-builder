@@ -19,14 +19,23 @@ import static ru.nemodev.towerbuilder.constant.GameConstant.HALF_Y;
 
 public class GameLocationPreviewActor extends BaseStaticActor
 {
-    private final String locationKey;
+    private final List<LocationPackDescription> locationPackDescriptionList;
+    private String locationKey;
+    private int selectedLocation;
     private final BitmapFont font;
     private Sprite backgroundSprite;
 
     public GameLocationPreviewActor(List<LocationPackDescription> locationPackDescriptionList, int selectedLocation)
     {
+        this.locationPackDescriptionList = locationPackDescriptionList;
         this.font = FontManager.getInstance().getBox2dCommonFont();
+        this.selectedLocation = selectedLocation;
 
+        updateCurrentLocation();
+    }
+
+    private void updateCurrentLocation()
+    {
         LocationPackDescription locationPackDescription = locationPackDescriptionList.get(selectedLocation);
         BackgroundPackDescription backgroundPackDescription = locationPackDescription.getBackgroundPackDescription();
         this.locationKey = locationPackDescription.getKey();
@@ -36,6 +45,24 @@ public class GameLocationPreviewActor extends BaseStaticActor
                 GameConstant.METERS_X, GameConstant.METERS_Y, GameConstant.HALF_X, HALF_Y);
 
         GameBuilderManager.getInstance().setSelectedLocationKey(locationKey);
+    }
+
+    public void showNextLocation()
+    {
+        if (selectedLocation + 1 < locationPackDescriptionList.size())
+        {
+            ++selectedLocation;
+            updateCurrentLocation();
+        }
+    }
+
+    public void showPrevLocation()
+    {
+        if (selectedLocation - 1 > -1)
+        {
+            --selectedLocation;
+            updateCurrentLocation();
+        }
     }
 
     @Override

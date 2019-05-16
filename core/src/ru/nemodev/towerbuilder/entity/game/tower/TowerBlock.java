@@ -44,12 +44,6 @@ public class TowerBlock extends Box2dActor
         return onTower;
     }
 
-    public boolean isNotMove()
-    {
-        return Math.abs(blockFixture.getBody().getLinearVelocity().y) < 0.3f
-                && Math.abs(blockFixture.getBody().getLinearVelocity().x) < 0.3f;
-    }
-
     private void notifyReadyToDropBlock()
     {
         if (!isNotifyReadyToDrop)

@@ -9,6 +9,7 @@ public class LocationPackDescription
 {
     private String name;
     private String key;
+    private Long locationCoast;
 
     private String mainMusic;
 
@@ -35,6 +36,16 @@ public class LocationPackDescription
     public void setKey(String key)
     {
         this.key = key;
+    }
+
+    public Long getLocationCoast()
+    {
+        return locationCoast;
+    }
+
+    public void setLocationCoast(Long locationCoast)
+    {
+        this.locationCoast = locationCoast;
     }
 
     public String getMainMusic()

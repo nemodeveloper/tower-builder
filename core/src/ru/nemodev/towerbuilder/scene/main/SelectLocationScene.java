@@ -3,32 +3,27 @@ package ru.nemodev.towerbuilder.scene.main;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.util.List;
+
 import ru.nemodev.towerbuilder.constant.texture.UITextureFinder;
-import ru.nemodev.towerbuilder.core.model.SimpleButtonActor;
-import ru.nemodev.towerbuilder.core.model.TouchListener;
+import ru.nemodev.towerbuilder.core.model.ButtonActor;
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.background.GameLocationPreviewActor;
 import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
-
-import java.util.List;
 
 import static ru.nemodev.towerbuilder.constant.GameConstant.HALF_Y;
 import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_X;
 
 public class SelectLocationScene extends BaseScene
 {
-    private final int maxLocationsCount;
-    private int selectedLocation;
+    private GameLocationPreviewActor gameLocationPreviewActor;
     private List<LocationPackDescription> locationPackDescriptionList;
 
     public SelectLocationScene(Batch batch, List<LocationPackDescription> locationPackDescriptionList)
     {
         super(batch);
-
-        this.selectedLocation = 0;
         this.locationPackDescriptionList = locationPackDescriptionList;
-        this.maxLocationsCount = locationPackDescriptionList.size() - 1;
 
         initScene();
     }
@@ -42,8 +37,8 @@ public class SelectLocationScene extends BaseScene
 
     private void initLocationPreview()
     {
-        GameLocationPreviewActor gameLocationPreviewActor = new GameLocationPreviewActor(
-                locationPackDescriptionList, selectedLocation);
+        gameLocationPreviewActor = new GameLocationPreviewActor(
+                locationPackDescriptionList, 0);
 
         addGameObject(gameLocationPreviewActor);
     }
@@ -64,23 +59,13 @@ public class SelectLocationScene extends BaseScene
                 UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START_TOUCHED,
                 sizeX, sizeY, positionX, positionY);
 
-        SimpleButtonActor nextLocationBtn = new SimpleButtonActor(startSprite, startSpriteTouched, new TouchListener()
-        {
+        ButtonActor nextLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
             @Override
-            public void handleTouch()
+            protected void doTouchUp(float x, float y)
             {
-                if (selectedLocation < maxLocationsCount)
-                {
-                    selectedLocation++;
-                }
-                else
-                {
-                    selectedLocation = 0;
-                }
-
-                initScene();
+                gameLocationPreviewActor.showNextLocation();
             }
-        });
+        };
 
         addGameObject(nextLocationBtn);
     }
@@ -105,23 +90,13 @@ public class SelectLocationScene extends BaseScene
 
         startSpriteTouched.flip(true, true);
 
-        SimpleButtonActor prevLocationBtn = new SimpleButtonActor(startSprite, startSpriteTouched, new TouchListener()
-        {
+        ButtonActor prevLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
             @Override
-            public void handleTouch()
+            protected void doTouchUp(float x, float y)
             {
-                if (selectedLocation != 0)
-                {
-                    selectedLocation--;
-                }
-                else
-                {
-                    selectedLocation = maxLocationsCount;
-                }
-
-                initScene();
+                gameLocationPreviewActor.showPrevLocation();
             }
-        });
+        };
 
         addGameObject(prevLocationBtn);
     }

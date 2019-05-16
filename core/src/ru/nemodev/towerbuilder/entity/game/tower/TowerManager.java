@@ -17,12 +17,10 @@ public class TowerManager extends Box2dActor
 
     private TowerEventListener towerEventListener;
     private TowerBlock curHeightBlock;
-    private boolean heightBlockChange;
 
     public TowerManager(World world)
     {
         super(world);
-        this.heightBlockChange = false;
     }
 
     @Override
@@ -39,14 +37,12 @@ public class TowerManager extends Box2dActor
                 if (curHeightBlock != heightBlock)
                 {
                     curHeightBlock = heightBlock;
-                    heightBlockChange = true;
                 }
             }
         }
 
-        if (heightBlockChange && curHeightBlock != null && !curHeightBlock.isNeedRemove())
+        if (curHeightBlock != null && !curHeightBlock.isNeedRemove())
         {
-            heightBlockChange = false;
             towerEventListener.maxHeightChange(curHeightBlock);
         }
     }
@@ -67,7 +63,6 @@ public class TowerManager extends Box2dActor
             {
                 TowerBlock towerBlock = (TowerBlock) gameObject;
                 if (towerBlock.isOnTower()
-                        && towerBlock.isNotMove()
                         && !towerBlock.isNeedRemove()
                         && towerBlock.getPosition().y > max)
                 {
