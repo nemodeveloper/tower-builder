@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.constant.texture.UITextureFinder;
-import ru.nemodev.towerbuilder.core.model.SimpleButtonActor;
+import ru.nemodev.towerbuilder.entity.game.ui.SimpleButton;
 import ru.nemodev.towerbuilder.core.model.TouchListener;
 import ru.nemodev.towerbuilder.core.scene.BaseScene;
 import ru.nemodev.towerbuilder.core.util.SpriteUtils;
@@ -64,7 +64,7 @@ public class SelectLocationScene extends BaseScene
                 UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START_TOUCHED,
                 sizeX, sizeY, positionX, positionY);
 
-        SimpleButtonActor nextLocationBtn = new SimpleButtonActor(startSprite, startSpriteTouched, new TouchListener()
+        SimpleButton nextLocationBtn = new SimpleButton(startSprite, startSpriteTouched, new TouchListener()
         {
             @Override
             public void handleTouch()
@@ -105,7 +105,7 @@ public class SelectLocationScene extends BaseScene
 
         startSpriteTouched.flip(true, true);
 
-        SimpleButtonActor prevLocationBtn = new SimpleButtonActor(startSprite, startSpriteTouched, new TouchListener()
+        SimpleButton prevLocationBtn = new SimpleButton(startSprite, startSpriteTouched, new TouchListener()
         {
             @Override
             public void handleTouch()

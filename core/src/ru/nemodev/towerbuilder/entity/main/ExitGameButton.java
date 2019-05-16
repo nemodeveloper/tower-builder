@@ -2,10 +2,10 @@ package ru.nemodev.towerbuilder.entity.main;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import ru.nemodev.towerbuilder.core.model.ButtonActor;
+import ru.nemodev.towerbuilder.entity.game.ui.BaseUIButton;
 import ru.nemodev.towerbuilder.manager.GameManager;
 
-public class ExitGameButton extends ButtonActor
+public class ExitGameButton extends BaseUIButton
 {
     public ExitGameButton(Sprite neutralState, Sprite pressState)
     {
@@ -13,7 +13,7 @@ public class ExitGameButton extends ButtonActor
     }
 
     @Override
-    public void doTouchUp(float x, float y)
+    public void handleTouchUp(float x, float y)
     {
         GameManager.getInstance().exit();
     }
