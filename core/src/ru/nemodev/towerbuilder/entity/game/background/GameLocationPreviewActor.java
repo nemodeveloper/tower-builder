@@ -47,6 +47,16 @@ public class GameLocationPreviewActor extends BaseStaticActor
         GameBuilderManager.getInstance().setSelectedLocationKey(locationKey);
     }
 
+    public boolean hasNextLocation()
+    {
+        return selectedLocation < locationPackDescriptionList.size() - 1;
+    }
+
+    public boolean hasPrevLocation()
+    {
+        return selectedLocation > 0;
+    }
+
     public void showNextLocation()
     {
         if (selectedLocation + 1 < locationPackDescriptionList.size())

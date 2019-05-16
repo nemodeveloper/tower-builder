@@ -17,6 +17,8 @@ import static ru.nemodev.towerbuilder.constant.GameConstant.METERS_X;
 
 public class SelectLocationScene extends BaseScene
 {
+    private ButtonActor nextLocationBtn;
+    private ButtonActor prevLocationBtn;
     private GameLocationPreviewActor gameLocationPreviewActor;
     private List<LocationPackDescription> locationPackDescriptionList;
 
@@ -59,13 +61,19 @@ public class SelectLocationScene extends BaseScene
                 UITextureFinder.COMMON_UI_ATLAS, UITextureFinder.BUTTON_START_TOUCHED,
                 sizeX, sizeY, positionX, positionY);
 
-        ButtonActor nextLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
+        nextLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
             @Override
             protected void doTouchUp(float x, float y)
             {
                 gameLocationPreviewActor.showNextLocation();
+                if (!gameLocationPreviewActor.hasNextLocation())
+                {
+                    nextLocationBtn.setVisible(false);
+                }
+                prevLocationBtn.setVisible(true);
             }
         };
+        nextLocationBtn.setVisible(gameLocationPreviewActor.hasNextLocation());
 
         addGameObject(nextLocationBtn);
     }
@@ -90,13 +98,19 @@ public class SelectLocationScene extends BaseScene
 
         startSpriteTouched.flip(true, true);
 
-        ButtonActor prevLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
+        prevLocationBtn = new ButtonActor(startSprite, startSpriteTouched) {
             @Override
             protected void doTouchUp(float x, float y)
             {
                 gameLocationPreviewActor.showPrevLocation();
+                if (!gameLocationPreviewActor.hasPrevLocation())
+                {
+                    prevLocationBtn.setVisible(false);
+                }
+                nextLocationBtn.setVisible(true);
             }
         };
+        prevLocationBtn.setVisible(gameLocationPreviewActor.hasPrevLocation());
 
         addGameObject(prevLocationBtn);
     }
