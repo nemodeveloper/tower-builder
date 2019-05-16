@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.core.listener.SoundEventListener;
 import ru.nemodev.towerbuilder.core.manager.system.ConfigManager;
-import ru.nemodev.towerbuilder.core.model.ButtonActor;
+import ru.nemodev.towerbuilder.entity.game.ui.BaseUIButton;
 
-public class MenuSoundButton extends ButtonActor
+public class MenuSoundButton extends BaseUIButton
 {
     final SoundEventListener soundEventListener;
 
@@ -51,7 +51,7 @@ public class MenuSoundButton extends ButtonActor
     }
 
     @Override
-    public void doTouchUp(float x, float y)
+    public void handleTouchUp(float x, float y)
     {
         if (ConfigManager.getInstance().isEnableSound())
         {
