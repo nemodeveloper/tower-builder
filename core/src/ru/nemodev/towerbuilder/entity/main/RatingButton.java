@@ -3,9 +3,9 @@ package ru.nemodev.towerbuilder.entity.main;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.core.manager.system.AppServiceManager;
-import ru.nemodev.towerbuilder.entity.game.ui.BaseUIButton;
+import ru.nemodev.towerbuilder.core.model.ButtonActor;
 
-public class RatingButton extends BaseUIButton
+public class RatingButton extends ButtonActor
 {
     public RatingButton(Sprite neutralState, Sprite pressState)
     {
@@ -13,7 +13,7 @@ public class RatingButton extends BaseUIButton
     }
 
     @Override
-    public void handleTouchUp(float x, float y)
+    public void doTouchUp(float x, float y)
     {
         if (!AppServiceManager.getInstance().getPlayService().isSignedIn())
         {

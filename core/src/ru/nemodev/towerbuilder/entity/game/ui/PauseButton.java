@@ -3,9 +3,10 @@ package ru.nemodev.towerbuilder.entity.game.ui;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import ru.nemodev.towerbuilder.core.manager.GameStatus;
+import ru.nemodev.towerbuilder.core.model.ButtonActor;
 import ru.nemodev.towerbuilder.manager.GameManager;
 
-public class PauseButton extends BaseUIButton
+public class PauseButton extends ButtonActor
 {
     private final GamePauseListener gamePauseListener;
 
@@ -17,7 +18,7 @@ public class PauseButton extends BaseUIButton
     }
 
     @Override
-    public void handleTouchUp(float x, float y)
+    public void doTouchUp(float x, float y)
     {
         if (GameManager.getInstance().isRunning())
         {
