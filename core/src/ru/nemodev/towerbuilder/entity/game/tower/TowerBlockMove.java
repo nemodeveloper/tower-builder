@@ -160,7 +160,7 @@ public class TowerBlockMove extends Box2dActor
         Fixture towerBlockFixture = Box2dObjectBuilder.createBoxFixture(world, box2dBodyType,
                 blockFixture.getBody().getPosition(),  size, size);
 
-        TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture, towerEventListener);
+        TowerBlock towerBlock = new TowerBlock(world, blockSpite, towerBlockFixture, size, towerEventListener);
         towerManager.addGameObject(towerBlock);
 
         return towerBlock;

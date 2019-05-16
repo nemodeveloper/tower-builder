@@ -96,7 +96,7 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
     {
         OrthographicCamera camera = getScene().getCamera();
 
-        currentPosY = towerBlock.getPosition().y + minDistanceY;
+        currentPosY = towerBlock.getBlockHeightPointY() + minDistanceY;
         if (lastTowerBlockMove != null && !lastTowerBlockMove.isNeedRemove())
         {
             lastTowerBlockMove.setHeight(currentPosY);

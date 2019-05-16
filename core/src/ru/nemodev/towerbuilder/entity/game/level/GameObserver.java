@@ -28,7 +28,7 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
     public void maxHeightChange(TowerBlock towerBlock)
     {
         // TODO реализовать проверку на победу
-//        if (towerBlock.getPosition().y >= strategyDescription.getTowerHeight())
+//        if (towerBlock.getBlockHeightPointY().y >= strategyDescription.getTowerHeight())
 //        {
 //            GameManager.getInstance().setGameStatus(GameStatus.GAME_WIN);
 //        }

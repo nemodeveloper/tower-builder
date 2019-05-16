@@ -32,7 +32,7 @@ public class TowerManager extends Box2dActor
         if (heightBlock != null)
         {
             if ((curHeightBlock == null || curHeightBlock.isNeedRemove())
-                    || heightBlock.getPosition().y > curHeightBlock.getPosition().y)
+                    || heightBlock.getBlockHeightPointY() > curHeightBlock.getBlockHeightPointY())
             {
                 if (curHeightBlock != heightBlock)
                 {
@@ -64,9 +64,9 @@ public class TowerManager extends Box2dActor
                 TowerBlock towerBlock = (TowerBlock) gameObject;
                 if (towerBlock.isOnTower()
                         && !towerBlock.isNeedRemove()
-                        && towerBlock.getPosition().y > max)
+                        && towerBlock.getBlockHeightPointY() > max)
                 {
-                    max = towerBlock.getPosition().y;
+                    max = towerBlock.getBlockHeightPointY();
                     maxHeightBlock = towerBlock;
                 }
             }

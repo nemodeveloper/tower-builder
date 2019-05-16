@@ -1,7 +1,6 @@
 package ru.nemodev.towerbuilder.entity.game.tower;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -17,6 +16,8 @@ public class TowerBlock extends Box2dActor
 {
     private final Box2DSprite blockSpite;
     private final Fixture blockFixture;
+    private final float size;
+    private final float halfSize;
 
     private boolean onTower;
     private boolean isNotifyReadyToDrop;
@@ -24,13 +25,15 @@ public class TowerBlock extends Box2dActor
 
     private final TowerManager.TowerEventListener towerEventListener;
 
-    public TowerBlock(World world, Box2DSprite blockSpite, Fixture blockFixture,
+    public TowerBlock(World world, Box2DSprite blockSpite, Fixture blockFixture, float size,
                       TowerManager.TowerEventListener towerEventListener)
     {
         super(world);
         this.blockSpite = blockSpite;
         this.blockFixture = blockFixture;
         this.blockFixture.setUserData(this);
+        this.size = size;
+        this.halfSize = size / 2.f;
         this.towerEventListener = towerEventListener;
 
         this.onTower = false;
@@ -38,9 +41,9 @@ public class TowerBlock extends Box2dActor
         this.isDropSoundPlayed = false;
     }
 
-    public Vector2 getPosition()
+    public float getBlockHeightPointY()
     {
-        return blockFixture.getBody().getPosition();
+        return blockFixture.getBody().getPosition().y + halfSize;
     }
 
     public boolean isOnTower()
