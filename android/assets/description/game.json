@@ -62,9 +62,9 @@
 
   "locationPackDescriptionList":[
     {
-      "name": "Горы",
-      "key": "mount",
-      "locationCoast": 5,
+      "name": "Защечник",
+      "key": "zachechnik",
+      "locationCoast": 0,
       "mainMusic": "main_theme.mp3",
       "backgroundPackDescription": {
         "staticTexture" : true
@@ -76,6 +76,18 @@
     {
       "name": "Лед",
       "key": "ice",
+      "locationCoast": 5,
+      "mainMusic": "main_theme.mp3",
+      "backgroundPackDescription": {
+        "staticTexture" : true
+      },
+      "blockPackDescription": {
+        "staticAtlas": true
+      }
+    },
+    {
+      "name": "Горы",
+      "key": "mount",
       "locationCoast": 10,
       "mainMusic": "main_theme.mp3",
       "backgroundPackDescription": {

@@ -1,0 +1,48 @@
+
+zachechnik_static_block.png
+size: 930,205
+format: RGBA8888
+filter: MipMapLinearLinear,MipMapLinearLinear
+repeat: none
+ro1
+  rotate: false
+  xy: 0, 0
+  size: 140, 190
+  orig: 140, 190
+  offset: 0, 0
+  index: -1
+ro2
+  rotate: false
+  xy: 155, 0
+  size: 155, 205
+  orig: 155, 205
+  offset: 0, 0
+  index: -1
+ro3
+  rotate: false
+  xy: 310, 0
+  size: 155, 200
+  orig: 155, 200
+  offset: 0, 0
+  index: -1
+ro4
+  rotate: false
+  xy: 465, 0
+  size: 130, 180
+  orig: 130, 180
+  offset: 0, 0
+  index: -1
+ro5
+  rotate: false
+  xy: 620, 0
+  size: 100, 140
+  orig: 100, 140
+  offset: 0, 0
+  index: -1
+ro6
+  rotate: false
+  xy: 775, 0
+  size: 120, 160
+  orig: 120, 160
+  offset: 0, 0
+  index: -1

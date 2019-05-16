@@ -24,12 +24,15 @@ public class GameLocationTextureFinder extends AtlasFinder
     public static final String STATIC_BACKGROUND_TEXTURE_KEY = "background";
     public static final String STATIC_GROUND_TEXTURE_KEY = "ground";
 
+    // TODO нужно сделать автоматический поиск в root LOCATION_MOUNT_BASE_PATH
     public static final String LOCATION_MOUNT_BASE_PATH = BASE_LOCATION_PATH + "mount";
     public static final String LOCATION_ICE_BASE_PATH = BASE_LOCATION_PATH + "ice";
+    public static final String LOCATION_ZACHECHNIK_BASE_PATH = BASE_LOCATION_PATH + "zachechnik";
 
     private static final Set<String> PATH_FOR_LOAD = new HashSet<String>(Arrays.asList(
             LOCATION_MOUNT_BASE_PATH,
-            LOCATION_ICE_BASE_PATH
+            LOCATION_ICE_BASE_PATH,
+            LOCATION_ZACHECHNIK_BASE_PATH
     ));
 
     public static final GameLocationTextureFinder INSTANCE = new GameLocationTextureFinder();
