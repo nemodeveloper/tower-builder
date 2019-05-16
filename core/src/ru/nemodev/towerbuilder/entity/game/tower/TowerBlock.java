@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 
+import ru.nemodev.towerbuilder.constant.SoundConstant;
+import ru.nemodev.towerbuilder.core.manager.resource.SoundManager;
 import ru.nemodev.towerbuilder.core.model.Box2dActor;
 import ru.nemodev.towerbuilder.core.physic.collision.Contactable;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
@@ -18,6 +20,7 @@ public class TowerBlock extends Box2dActor
 
     private boolean onTower;
     private boolean isNotifyReadyToDrop;
+    private boolean isDropSoundPlayed;
 
     private final TowerManager.TowerEventListener towerEventListener;
 
@@ -32,6 +35,7 @@ public class TowerBlock extends Box2dActor
 
         this.onTower = false;
         this.isNotifyReadyToDrop = false;
+        this.isDropSoundPlayed = false;
     }
 
     public Vector2 getPosition()
@@ -53,11 +57,21 @@ public class TowerBlock extends Box2dActor
         }
     }
 
+    private void playDropSound()
+    {
+        if (!isDropSoundPlayed)
+        {
+            isDropSoundPlayed = true;
+            SoundManager.getInstance().playSound(SoundConstant.BTN_CLICK);
+        }
+    }
+
     @Override
     public void beginContact(Contactable contactable)
     {
         if (contactable instanceof TowerBlock || contactable instanceof GroundActor)
         {
+            playDropSound();
             notifyReadyToDropBlock();
             onTower = true;
         }
