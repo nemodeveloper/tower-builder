@@ -1,6 +1,8 @@
 package ru.nemodev.towerbuilder.manager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ru.nemodev.towerbuilder.constant.game.GameLoaderConstant;
@@ -16,6 +18,8 @@ public class GameBuilderManager
 
     private final Map<ModeType, ModeDescription> modeDescriptionMap;
     private final Map<String, LocationPackDescription> locationPackDescriptionMap;
+
+    private String selectedLocationKey;
 
     public GameBuilderManager()
     {
@@ -53,4 +57,18 @@ public class GameBuilderManager
         return locationPackDescriptionMap.get(locationKey);
     }
 
+    public List<LocationPackDescription> getLocationPackDescriptionList()
+    {
+        return new ArrayList<LocationPackDescription>(locationPackDescriptionMap.values());
+    }
+
+    public void setSelectedLocationKey(String selectedLocationKey)
+    {
+        this.selectedLocationKey = selectedLocationKey;
+    }
+
+    public LocationPackDescription getSelectedLocationPackDescription()
+    {
+        return getLocationPackDescription(this.selectedLocationKey);
+    }
 }

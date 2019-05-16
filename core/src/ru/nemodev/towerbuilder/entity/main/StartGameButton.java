@@ -25,6 +25,6 @@ public class StartGameButton extends ButtonActor
         GameManager.getInstance().getScreenManager().pushScreen(
                 new GameScreen(
                         GameBuilderManager.getInstance().getModeDescription(ModeType.count),
-                        GameBuilderManager.getInstance().getLocationPackDescription("ice")));
+                        GameBuilderManager.getInstance().getSelectedLocationPackDescription()));
     }
 }
