@@ -20,7 +20,7 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
     {
         this.strategyDescription = strategyDescription;
         this.towerBlockGenerator = towerBlockGenerator;
-        this.gameScoreActor = new GameScoreActor(strategyDescription.getCount());
+        this.gameScoreActor = new GameScoreActor(strategyDescription.getCountBlock());
         setVisible(false);
     }
 

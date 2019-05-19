@@ -7,7 +7,6 @@ import ru.nemodev.towerbuilder.entity.game.description.mode.strategy.StrategyDes
 public class ModeDescription
 {
     private ModeType modeType;
-    private String staticTexture;
 
     private StrategyDescription strategyDescription;
     private MoveBlockDescription moveBlockDescription;
@@ -24,16 +23,6 @@ public class ModeDescription
     public void setModeType(ModeType modeType)
     {
         this.modeType = modeType;
-    }
-
-    public String getStaticTexture()
-    {
-        return staticTexture;
-    }
-
-    public void setStaticTexture(String staticTexture)
-    {
-        this.staticTexture = staticTexture;
     }
 
     public MoveBlockDescription getMoveBlockDescription()

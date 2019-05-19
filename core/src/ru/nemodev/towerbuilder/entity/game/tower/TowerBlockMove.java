@@ -39,6 +39,7 @@ public class TowerBlockMove extends Box2dActor
                           TowerManager towerManager,
                           Box2DSprite blockSpite,
                           Fixture blockFixture,
+                          MoveType moveType,
                           MoveBlockDescription moveBlockDescription,
                           TowerManager.TowerEventListener towerEventListener)
     {
@@ -54,7 +55,8 @@ public class TowerBlockMove extends Box2dActor
         this.speed = moveBlockDescription.getStartSpeed();
         this.box2dBodyType = moveBlockDescription.getPhysicDescription().getBox2dBodyType();
 
-        this.moveType = moveBlockDescription.getMoveType();
+        this.moveType = moveType;
+
         this.centre = new Vector2(GameConstant.HALF_X, blockFixture.getBody().getPosition().y);
 
         if (moveType == MoveType.line)
@@ -88,6 +90,10 @@ public class TowerBlockMove extends Box2dActor
     {
         final Vector2 position = blockFixture.getBody().getPosition();
 
+        float centreY = MoveType.circle == moveType
+                ? centre.y - moveBlockDescription.getMinDistanceY() / 2.f
+                : centre.y;
+
         if (moveType == MoveType.line)
         {
             // TODO бывает кубик заедает на границе - разобраться с этим
@@ -99,9 +105,9 @@ public class TowerBlockMove extends Box2dActor
         }
         else
         {
-            angle += 1.f * speed;
+            angle += 0.2f * speed;
             float x = centre.x + MathUtils.cosDeg(angle) * (GameConstant.HALF_X - halfSize);
-            float y = centre.y + MathUtils.sinDeg(angle) * GameConstant.HALF_X;
+            float y = centreY + MathUtils.sinDeg(angle) * GameConstant.HALF_X;
             if (angle >= moveBlockDescription.getMaxAngle()
                     || angle <= moveBlockDescription.getMinAngle())
             {
@@ -115,7 +121,7 @@ public class TowerBlockMove extends Box2dActor
         final float timeToMove = 0.1f;
         Vector2 curPos = blockFixture.getBody().getPosition();
         blockFixture.getBody().setTransform(curPos.x,
-                MathUtils.lerp(curPos.y, centre.y, timeToMove),
+                MathUtils.lerp(curPos.y, centreY, timeToMove),
                 blockFixture.getBody().getAngle());
     }
 

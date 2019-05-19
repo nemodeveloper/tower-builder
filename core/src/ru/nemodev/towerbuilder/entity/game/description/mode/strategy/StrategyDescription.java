@@ -2,20 +2,20 @@ package ru.nemodev.towerbuilder.entity.game.description.mode.strategy;
 
 public class StrategyDescription
 {
-    private int count;
+    private int countBlock;
     private int towerHeight;
 
     public StrategyDescription()
     { }
 
-    public int getCount()
+    public int getCountBlock()
     {
-        return count;
+        return countBlock;
     }
 
-    public void setCount(int count)
+    public void setCountBlock(int countBlock)
     {
-        this.count = count;
+        this.countBlock = countBlock;
     }
 
     public int getTowerHeight()

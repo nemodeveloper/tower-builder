@@ -16,6 +16,7 @@ import ru.nemodev.towerbuilder.core.util.SpriteUtils;
 import ru.nemodev.towerbuilder.entity.game.ConstantBox2dBodyType;
 import ru.nemodev.towerbuilder.entity.game.description.location.block.BlockPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveBlockDescription;
+import ru.nemodev.towerbuilder.entity.game.description.mode.block.MoveType;
 
 
 public class TowerBlockGenerator extends Box2dActor implements TowerManager.TowerEventListener
@@ -28,6 +29,7 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
     private float currentSpeed;
     private float currentPosY;
     private final float minDistanceY;
+    private MoveType currentMoveType;
 
     private TowerBlockMove lastTowerBlockMove;
 
@@ -45,6 +47,10 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
         this.currentSpeed = moveBlockDescription.getStartSpeed();
         this.currentPosY = GameConstant.HALF_Y;
         this.minDistanceY = moveBlockDescription.getMinDistanceY();
+        this.currentMoveType = MoveType.random == moveBlockDescription.getMoveType()
+                ? MoveType.line
+                : moveBlockDescription.getMoveType();
+
         this.readyForDropBlock = true;
 
         setVisible(false);
@@ -85,8 +91,13 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
                 towerManager,
                 towerBlockSprite,
                 towerBlockFixture,
+                currentMoveType,
                 moveBlockDescription,
                 this);
+
+        currentMoveType = currentMoveType == MoveType.line
+                ? MoveType.circle
+                : MoveType.line;
 
         return lastTowerBlockMove;
     }

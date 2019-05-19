@@ -10,5 +10,10 @@ public enum MoveType
     /**
      * Движение по окружности
      */
-    circle
+    circle,
+
+    /**
+     * Случайный тип движения
+     */
+    random
 }
