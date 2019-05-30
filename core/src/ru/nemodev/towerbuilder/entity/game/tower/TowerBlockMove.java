@@ -63,18 +63,6 @@ public class TowerBlockMove extends Box2dActor
         {
             blockFixture.getBody().setLinearVelocity(MathUtils.randomBoolean() ? speed : -speed, 0.f);
         }
-        else
-        {
-            if (MathUtils.randomBoolean())
-            {
-                this.angle = moveBlockDescription.getMinAngle();
-            }
-            else
-            {
-                this.angle = moveBlockDescription.getMaxAngle();
-                this.speed *= -1;
-            }
-        }
 
         blockFixture.setSensor(true);
     }
@@ -90,10 +78,6 @@ public class TowerBlockMove extends Box2dActor
     {
         final Vector2 position = blockFixture.getBody().getPosition();
 
-        float centreY = MoveType.circle == moveType
-                ? centre.y - moveBlockDescription.getMinDistanceY() / 2.f
-                : centre.y;
-
         if (moveType == MoveType.line)
         {
             // TODO бывает кубик заедает на границе - разобраться с этим
@@ -103,25 +87,12 @@ public class TowerBlockMove extends Box2dActor
                 blockFixture.getBody().setLinearVelocity(blockFixture.getBody().getLinearVelocity().x * -1.f, 0.f);
             }
         }
-        else
-        {
-            angle += 0.2f * speed;
-            float x = centre.x + MathUtils.cosDeg(angle) * (GameConstant.HALF_X - halfSize);
-            float y = centreY + MathUtils.sinDeg(angle) * GameConstant.HALF_X;
-            if (angle >= moveBlockDescription.getMaxAngle()
-                    || angle <= moveBlockDescription.getMinAngle())
-            {
-                speed *= -1;
-            }
-
-            blockFixture.getBody().setTransform(x, y, 0.f);
-        }
 
         // делаем плавный сдвиг
         final float timeToMove = 0.1f;
         Vector2 curPos = blockFixture.getBody().getPosition();
         blockFixture.getBody().setTransform(curPos.x,
-                MathUtils.lerp(curPos.y, centreY, timeToMove),
+                MathUtils.lerp(curPos.y, centre.y, timeToMove),
                 blockFixture.getBody().getAngle());
     }
 

@@ -7,7 +7,7 @@
         "towerHeight" : 15
       },
       "moveBlockDescription": {
-        "moveType" : "random",
+        "moveType" : "line",
         "minAngle": 0,
         "maxAngle": 180,
         "minDistanceY" : 6,

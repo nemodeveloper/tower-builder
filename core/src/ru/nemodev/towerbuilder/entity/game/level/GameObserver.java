@@ -9,7 +9,7 @@ import ru.nemodev.towerbuilder.entity.game.tower.TowerBlockGenerator;
 import ru.nemodev.towerbuilder.entity.game.tower.TowerManager;
 
 
-public abstract class GameObserver extends BaseActor implements TowerManager.TowerEventListener, PlayerActor.PlayerEventListener
+public class GameObserver extends BaseActor implements TowerManager.TowerEventListener, PlayerActor.PlayerEventListener
 {
     protected final StrategyDescription strategyDescription;
     protected final TowerBlockGenerator towerBlockGenerator;
@@ -47,7 +47,7 @@ public abstract class GameObserver extends BaseActor implements TowerManager.Tow
     @Override
     public void playerDropBlock()
     {
-
+        gameScoreActor.addEnableCount(-1);
     }
 
     @Override

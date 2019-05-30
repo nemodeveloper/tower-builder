@@ -11,7 +11,6 @@ import ru.nemodev.towerbuilder.core.scene.Box2dScene;
 import ru.nemodev.towerbuilder.entity.game.border.GroundActor;
 import ru.nemodev.towerbuilder.entity.game.description.location.LocationPackDescription;
 import ru.nemodev.towerbuilder.entity.game.description.mode.ModeDescription;
-import ru.nemodev.towerbuilder.entity.game.level.GameCountBlockObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameObserver;
 import ru.nemodev.towerbuilder.entity.game.level.GameScoreActor;
 import ru.nemodev.towerbuilder.entity.game.player.PlayerActor;
@@ -92,7 +91,7 @@ public class GameScene extends Box2dScene
 
     private void initGameObserver()
     {
-        gameObserver = new GameCountBlockObserver(modeDescription.getStrategyDescription(), towerBlockGenerator);
+        gameObserver = new GameObserver(modeDescription.getStrategyDescription(), towerBlockGenerator);
         towerManager.setTowerEventListener(gameObserver);
         playerActor.setPlayerEventListener(gameObserver);
 

@@ -47,9 +47,7 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
         this.currentSpeed = moveBlockDescription.getStartSpeed();
         this.currentPosY = GameConstant.HALF_Y;
         this.minDistanceY = moveBlockDescription.getMinDistanceY();
-        this.currentMoveType = MoveType.random == moveBlockDescription.getMoveType()
-                ? MoveType.line
-                : moveBlockDescription.getMoveType();
+        this.currentMoveType = moveBlockDescription.getMoveType();
 
         this.readyForDropBlock = true;
 
@@ -94,10 +92,6 @@ public class TowerBlockGenerator extends Box2dActor implements TowerManager.Towe
                 currentMoveType,
                 moveBlockDescription,
                 this);
-
-        currentMoveType = currentMoveType == MoveType.line
-                ? MoveType.circle
-                : MoveType.line;
 
         return lastTowerBlockMove;
     }
